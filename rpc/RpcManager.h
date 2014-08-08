@@ -1,5 +1,4 @@
 
-
 #ifndef _RPC_MANAGER_H
 #define _RPC_MANAGER_H
 
@@ -27,7 +26,7 @@ public:
     static rpc_handler_function_t sHandlerMap[500];
 private:
     static RpcManager *pInstance;
-
+    //int xxx;
 };
 
 #define RPCMANAGER  RpcManager::Instance()
