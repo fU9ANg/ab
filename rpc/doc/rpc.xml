@@ -1,58 +1,1146 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <RPC>
-    <!-- server call client function -->
-    <S2C>
-        <function name="AddTank" doc="添加一个坦克">
-            <ret name="tank" type="TankDB" doc="坦克"/>
-        </function>
-
-        <function name="BeAttack" doc="被攻击">
-            <ret name="tankId" type="int" doc="攻击者ID"/>
-            <ret name="beTankId" type="int" doc="被攻击者ID"/>
-        </function>
-
-        <function name="AddBuffToBattleField" doc="添加一个坦克到战场上">
-            <ret name "tank" type="TankDB" doc="战场坦克"/>
-        </function>
-
-        <function name="UpdateCannonAttack" doc="更新炮台攻击">
-            <ret name="cannonId" type="int" doc="炮台Id"/>
-            <ret name="tankId" type="int" doc="坦克Id"/>
-        </function>
-    </S2C>
-
-    <!-- client call server function -->
-    <C2S>
-        <function name="UpdateHeart" doc="心跳包"/>
-        <function name="LoginPlayer" doc="玩家进入">
-            <arg name="username" type="string" doc="用户名"/>
-            <arg name="password" type="string" doc="密码"/>
-            <ret name="result" type="int" doc="返回的登录码"/>
-            <ret name="message" type="string" doc="返回信息"/>
-        </function>
-
-        <function name="GetTankList" doc="获得坦克列表">
-            <ret name="tankList" type="TankDB" arraySize="Dynamic" doc="坦克列表"/>
-        </function>
-
-        <function name="GetBuffList" doc="获得Buff列表">
-            <ret name="buffList" type="BuffDB" arraySize="Dynamic" doc="Buffer列表"/>
-        </function>
-
-        <function name="GetCannonList" doc="获得炮台列表">
-            <ret name="cannonList" type="CannonDB" arraySize="Dynamic" doc="炮台列表"/>
-        </function>
-
-        <function name="Attack" doc="攻击">
-            <arg name="tankId" type="int" doc="攻击者ID"/>
-            <arg name="beTankId" type="int" doc="被攻击者ID"/>
-            <ret name="rs" type="int">
-                <errcode code="1" success="true" doc="成功"/>
-                <errcode code="2" notify="攻击者ID非法"/>
-                <errcode code="3" notify="被攻击者ID非法"/>
-                <errcode code="4" notify="其它错误"/>
-            </ret>
-        </function>
-    </C2S>
+  <!--as3 start-->
+  <AS3>
+    <function name="EnterGame" doc="进入游戏">
+      <arg name="player" type="Player" doc="玩家数据"/>
+    </function>
+    <!--场景-->
+    <function name="EnterScene" doc="进入场景" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="sceneId" type="int" doc="场景Id"/>
+      <arg name="posX" type="int"  doc="X坐标"/>
+      <arg name="posY" type="int"  doc="Y坐标"/>
+      <arg name="Hp" type ="int" doc="生命"/>
+      <arg name="Mp" type ="int" doc="法力"/>
+      <arg name="combatCamp" type="int"  doc="战斗阵营"/>
+    </function>
+    <function name="LeaveScene" doc="离开场景" local="1"/>
+    <function name="PlayerEnterScene" doc="玩家进入场景">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="roleId" type="int"  doc="角色ID"/>
+      <arg name="Name" type="string"  doc="名称"/>
+      <arg name="posX" type="int"  doc="X坐标"/>
+      <arg name="posY" type="int"  doc="Y坐标"/>
+      <arg name="moveSpeed" type="int"  doc="移动速度"/>
+      <arg name="Hp" type ="int" doc="生命"/>
+      <arg name="Mp" type ="int" doc="法力"/>
+      <arg name="combatCamp" type="int"  doc="战斗阵营"/>
+    </function>
+    <function name="RoleEnterScene" doc="角色进入场景" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="roleId" type="int"  doc="角色ID"/>
+      <arg name="composeLevel" type="int"  doc="合成等级"/>
+      <arg name="posX" type="int"  doc="X坐标"/>
+      <arg name="posY" type="int"  doc="Y坐标"/>
+      <arg name="moveSpeed" type="int"  doc="移动速度"/>
+      <arg name="Hp" type ="int" doc="生命"/>
+      <arg name="Mp" type ="int" doc="法力"/>
+      <arg name="combatCamp" type="int"  doc="战斗阵营"/>
+    </function>
+    <function name="EntityLeaveScene" doc="对象离开场景" local="1">
+      <arg name="entityId" type="entityId"  doc="对象ID"/>
+    </function>
+    <!--移动-->
+    <function name="EntityMovePos" doc="单位移动到指定坐标" local="1">
+      <arg name="entityId" type="entityId"  doc="对象ID"/>
+      <arg name="posX" type="int" doc="X坐标"/>
+      <arg name="posY" type="int" doc="Y坐标"/>
+    </function>
+    <function name="EntityMoveStop" doc="单位停止移动" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="posX" type="int" doc="X坐标"/>
+      <arg name="posY" type="int" doc="Y坐标"/>
+    </function>
+    <function name="EntityKnockback" doc="单位被击退" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="posX" type="int" doc="X坐标"/>
+      <arg name="posY" type="int" doc="Y坐标"/>
+      <arg name="time" type="int" doc="时间(毫秒)"/>
+    </function>
+    <!--战斗-->
+    <function name="UpdateHp" doc="更新血量" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="hp" type="int" doc="当前血量"/>
+    </function>
+    <function name="UpdateMp" doc="更新法力" local="1">
+      <arg name="mp" type="int" doc="当前法力"/>
+    </function>
+    <function name="UpdateMpByRegen" doc="更新法力(回蓝)" local="1">
+      <arg name="mp" type="int" doc="当前法力"/>
+    </function>
+    <function name="UpdateMpByDrink" doc="更新法力(蓝瓶))" local="1">
+      <arg name="mp" type="int" doc="当前法力"/>
+    </function>
+    <function name="SpellCastStart" doc="技能施放开始" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="spellId" type="int" doc="技能Id"/>
+      <arg name="castTime" type="int" doc="施法时间"/>
+    </function>
+    <function name="SpellCastSuccess" doc="施放技能成功" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="spellId" type="int" doc="技能Id"/>
+      <arg name="spellSerial" type="int" doc="技能序列号"/>
+      <arg name="targetId" type="entityId" doc="目标ID,0为无目标"/>
+      <arg name="pos" type="Pos" doc="位置，空为无位置"/>
+      <arg name="flyTime" type="int" doc="飞行时间"/>
+    </function>
+    <function name="SpellCastInterrupted" doc="技能施放被打断" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+    </function>
+    <function name="SpellDamage" doc="技能伤害" local="1">
+      <arg name="casterId" type="entityId" doc="施放者ID"/>
+      <arg name="targetId" type="entityId" doc="目标ID"/>
+      <arg name="spellSerial" type="int" doc="技能序列号"/>
+      <arg name="damage" type="int" doc="伤害数值"/>
+      <arg name="flag" type="int" doc="0:无1:未命中2:暴击3:免疫"/>
+    </function>
+    <function name="MpDamage" doc="法力伤害" local="1">
+      <arg name="targetId" type="entityId" doc="目标ID"/>
+      <arg name="damage" type="int" doc="伤害数值"/>
+    </function>
+    <function name="EntityDead" doc="对象死亡">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+    </function>
+    <function name="AddBuff" doc="添加Buff" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="buff" type="BuffDB"  doc="Buff信息"/>
+    </function>
+    <function name="RemoveBuff" doc="删除Buff" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="buffId" type="int"  doc="BuffId"/>
+    </function>
+    <function name="UpdateBuff" doc="更新Buff" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="buff" type="BuffDB"  doc="Buff信息"/>
+    </function>
+    <function name="UpdateBuffTimes" doc="更新Buff叠加次数" local="1">
+      <arg name="buffId" type="int"  doc="BuffId"/>
+      <arg name="times" type="int"  doc="次数"/>
+    </function>
+    <function name="BuffRemovedByDispel" doc="Buff被驱散">
+      <arg name="buffId" type="int"  doc="BuffId"/>
+    </function>
+    <function name="AddCooldown" doc="添加冷却" local="1">
+      <arg name="cdGroup" type="int"  doc="冷却组1:法术CD 2:法术GCD"/>
+      <arg name="cdId" type="int"  doc="冷却Id"/>
+      <arg name="startTime" type="int64" doc="开始时间"/>
+      <arg name="duration" type="int" doc="维持时间"/>
+    </function>
+    <function name="CooldownRemoved" doc="清除冷却" local="1">
+      <arg name="cdGroup" type="int"  doc="冷却组1:法术CD 2:法术GCD"/>
+      <arg name="cdId" type="int"  doc="冷却Id"/>
+    </function>
+    <function name="PlayerCombatReady" doc="玩家战斗准备" local="1">
+      <arg name="entityId" type="entityId"  doc="对象ID"/>
+    </function>
+    <function name="CombatReadied" doc="战斗准备就绪" local="1">
+      <arg name="time" type="int64"  doc="开始时间"/>
+    </function>
+    <function name="CombatStart" doc="战斗开始" local="1">
+      <arg name="expireTime" type="int"  doc="战斗结束时间 0:无战斗时间"/>
+    </function>
+    <function name="CombatEnd" doc="战斗结束">
+      <arg name="flag" type="int"  doc="1:胜利 2:失败"/>
+      <arg name="reward" type="ResourceDB" arraySize="Dynamic" doc="奖励表"/>
+      <arg name="items" type="ItemDB" arraySize="Dynamic" doc="物品表"/>
+      <arg name="dropReward" type="ResourceDB" arraySize="Dynamic" doc="掉落奖励表"/>
+      <arg name="dropItems" type="ItemDB" arraySize="Dynamic" doc="掉落物品表"/>
+      <arg name="openHidden" type="int"  doc="0:未开启 1开启隐藏关"/>
+    </function>
+    <function name="SceneInfoDungeonCombat" doc="场景信息-关卡战斗">
+      <arg name="levelId" type="int"  doc="关卡ID"/>
+    </function>
+    <function name="SceneInfoHiddenLevelCombat" doc="场景信息-隐藏关卡战斗">
+      <arg name="levelIndex" type="int"  doc="关卡下标"/>
+    </function>
+    <function name="SceneInfoDramaCombat" doc="场景信息-剧情战斗">
+      <arg name="roleId" type="int"  doc="主角对应的角色ID"/>
+    </function>
+    <function name="EnterWorldBossEntrance" doc="进入世界BOSS入口">
+      <arg name="bossId" type="int"  doc="BossId"/>
+      <arg name="bossLevel" type="int"  doc="Boss等级"/>
+      <arg name="bossHp" type="int"  doc="Boss当前"/>
+      <arg name="bossMaxHp" type="int"  doc="Boss最大血量"/>
+      <arg name="dmgList" type="WorldBossDamageDB" arraySize="Dynamic" doc="伤害列表"/>
+      <arg name="totalDamge" type="int64" doc="总伤害"/>
+      <arg name="reviveTime" type="int" doc="复活时间"/>
+    </function>
+    <function name="ReturnWorldBossEntrance" doc="返回世界BOSS入口">
+      <arg name="reviveTime" type="int" doc="复活时间"/>
+    </function>
+    <function name="SceneInfoWorldBoss" doc="场景信息-世界BOSS"/>
+    <function name="SceneInfoArena" doc="场景信息-竞技场">
+      <arg name="targetName" type="string"  doc="目标名字"/>
+    </function>
+    <function name="UpdateDungeonCombatTarget" doc="更新副本关卡战斗目标" local="1">
+      <arg name="targetArg" type="int"  doc="目标参数"/>
+    </function>
+    <function name="UpdateDungeonWaveProgress" doc="更新副本波次进度" local="1">
+      <arg name="value" type="int"  doc="怪物数量"/>
+    </function>
+    <function name="DecreaseMpDrop" doc="减少蓝瓶" local="1"/>
+    <function name="MonsterDrop" doc="怪物掉落" local="1">
+      <arg name="entityId" type="entityId" doc="怪物ID"/>
+      <arg name="Resources" type="ResourceDB" arraySize="Dynamic" doc="掉落资源列表"/>
+    </function>
+    <function name="ShowSpellEffectText" doc="显示技能效果文字" local="1">
+      <arg name="effects" type="int" arraySize="Dynamic" doc="效果列表"/>
+    </function>
+    <function name="OpenSummonDoor" doc="召唤门" local="1">
+      <arg name="posX" type="int" doc="X坐标"/>
+      <arg name="posY" type="int" doc="Y坐标"/>
+      <arg name="combatCamp" type="int" doc="战斗阵营"/>
+    </function>
+    <!--伙伴-->
+    <function name="AddPartner" doc="添加伙伴">
+      <arg name="role" type="Role" doc="添加的伙伴"/>
+    </function>
+    <function name="PartnerEnabled" doc="伙伴上阵">
+      <arg name="rolePos" type="int" doc="伙伴位置"/>
+      <arg name="slotPos" type="int" doc="阵型位置"/>
+    </function>
+    <!--任务-->
+    <function name="InitQuests" doc="初始化任务列表">
+      <arg name="AcceptedQuests" type="AcceptedQuestDB" arraySize="Dynamic" doc="已接任务列表"/>
+      <arg name="AcceptableQuests" type="int" arraySize="Dynamic" doc="可接任务列表"/>
+    </function>
+    <function name="UpdateAcceptableQuests" doc="更新可接任务列表">
+      <arg name="quests" type="int" arraySize="Dynamic" doc="任务列表"/>
+    </function>
+    <function name="UpdateQuestTarget" doc="更新任务目标">
+      <arg name="quest" type="AcceptedQuestDB"  doc="任务信息"/>
+    </function>
+    <function name="AddAcceptedQuest" doc="添加已接任务">
+      <arg name="quest" type="AcceptedQuestDB"  doc="任务信息"/>
+    </function>
+    <!--物品-->
+    <function name="UpdateOneBagItem" doc="更新一件背包物品">
+      <arg name="pos" type="int" doc="物品位置"/>
+      <arg name="item" type="ItemDB" doc="物品信息"/>
+    </function>
+    <function name="UpdateOneEquipedItem" doc="更新一件穿戴物品">
+      <arg name="pos" type="int" doc="物品位置"/>
+      <arg name="item" type="ItemDB" doc="物品信息"/>
+    </function>
+    <function name="UpdateBagItems" doc="更新背包物品列表">
+      <arg name="items" type="ItemDB" arraySize="Dynamic" doc="物品列表"/>
+    </function>
+    <!--宝石-->
+    <function name="UpdateGemPacket" doc="更新宝石包">
+      <arg name="formation" type="int"  doc="阵型位置"/>
+      <arg name="packet" type="int"  doc="宝石包位置"/>
+      <arg name="gems" type="int"  arraySize="Dynamic" doc="宝石列表"/>
+    </function>
+    <!--属性-->
+    <function name="MoneyUpdated" doc="金币改变">
+      <arg name="value" type="int" doc="当前数值"/>
+    </function>
+    <function name="GoldUpdated" doc="元宝改变">
+      <arg name="value" type="int" doc="当前数值"/>
+    </function>
+    <function name="PowerUpdated" doc="体力改变">
+      <arg name="value" type="int" doc="当前数值"/>
+    </function>
+    <function name="ExpItemUpdated" doc="伙伴经验改变">
+      <arg name="value" type="int" doc="当前数值"/>
+    </function>
+    <function name="AddGem" doc="添加宝石">
+      <arg name="gem" type="GemDB" doc="宝石"/>
+    </function>
+    <function name="UpdateGem" doc="更新宝石">
+      <arg name="gem" type="GemDB" doc="宝石"/>
+    </function>
+    <function name="RemoveGem" doc="删除宝石">
+      <arg name="gemId" type="int" doc="宝石Id"/>
+    </function>
+    <function name="MoveSpeedUpdated" doc="移动速度改变" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="value" type="int" doc="当前移动速度"/>
+    </function>
+    <function name="ForbidStateUpdated" doc="限制状态改变" local="1">
+      <arg name="entityId" type="entityId" doc="对象ID"/>
+      <arg name="state" type="int" doc="状态(0位:无效 1位:禁止施法 2位:禁止移动 3位:禁止行动)"/>
+    </function>
+    <function name="PropsUpdated" doc="属性改变">
+      <arg name="rolePos" type="int" doc="伙伴位置"/>
+      <arg name="props" type="int" arraySize="Dynamic"  doc="属性值(数组下表为属性Id)"/>
+    </function>
+    <function name="CombatScoreUpdated" doc="战斗力改变">
+      <arg name="value" type="int" doc="战斗力"/>
+    </function>
+    <function name="LevelUpdated" doc="等级改变">
+      <arg name="rolePos" type="int" doc="伙伴位置"/>
+      <arg name="value" type="int" doc="当前等级"/>
+    </function>
+    <function name="ExpUpdated" doc="主角经验改变">
+      <arg name="value" type="int" doc="当前经验"/>
+    </function>
+    <function name="VipLevelUpdated" doc="VIP等级改变">
+      <arg name="value" type="int" doc="当前VIP等级"/>
+    </function>
+    <function name="AddHiddenLevel" doc="添加隐藏关卡">
+      <arg name="level" type="HiddenLevelDB" doc="隐藏关卡"/>
+    </function>
+    <function name="RemoveHiddenLevel" doc="删除隐藏关卡">
+      <arg name="idx" type="int" doc="关卡索引"/>
+    </function>
+    <function name="BoughtPowerTimesUpdated" doc="购买体力次数改变">
+      <arg name="times" type="int" doc="次数"/>
+    </function>
+    <function name="BoughtMoneyTimesUpdated" doc="钓鱼次数改变">
+      <arg name="times" type="int" doc="次数"/>
+    </function>
+    <!--Arena-->
+    <function name="UpdateArenaInfo" doc="更新竞技场信息">
+      <arg name="rank" type="int" doc="排名"/>
+      <arg name="players" type="ArenaPlayerDB" arraySize="Dynamic" doc="玩家列表"/>
+    </function>
+    <function name="UpdateArenaCombatTimes" doc="更新竞技场战斗次数">
+      <arg name="times" type="int" doc="次数"/>
+    </function>
+    <function name="ArenaTodayBadgeUpdated" doc="竞技今日获得徽章数量变化">
+      <arg name="value" type="int" doc="数量"/>
+    </function>
+    <function name="ArenaRanksUpdated" doc="竞技场前20排名更新了"/>
+    <function name="ArenaMessageUpdated" doc="竞技场消息">
+      <arg name="msg" type="ArenaMessageDB" doc="消息"/>
+    </function>
+    <!--WorldBoss-->
+    <function name="DeadReleaseSoul" doc="阵亡可释放灵魂"/>
+    <function name="UpdateDeathEndTime" doc="更新死亡结束时间">
+      <arg name="time" type="int" doc="时间戳"/>
+    </function>
+    <function name="UpdateWorldBossInfo" doc="世界BOSS开启">
+      <arg name="bossId" type="int" doc="世界BOSSID"/>
+      <arg name="worldBossEndTime" type="int" doc="世界BOSS结束时间 0:未开启"/>
+    </function>
+    <function name="WorldBossBegin" doc="世界BOSS开启">
+      <arg name="endTime" type="int" doc="结束时间戳"/>
+    </function>
+    <function name="WorldBossEnd" doc="世界BOSS结束"/>
+    <function name="WorldBossSelfDamage" doc="世界BOSS自己伤害">
+      <arg name="dmg" type="WorldBossDamageDB" doc="伤害信息"/>
+    </function>
+    <function name="UpdateWorldBossDamageInfo" doc="更世界BOSS伤害信息">
+      <arg name="dmgList" type="WorldBossDamageDB" arraySize="Dynamic" doc="伤害列表"/>
+      <arg name="bossHp" type="int" doc="Boss血量"/>
+      <arg name="totalDamge" type="int64" doc="总伤害"/>
+    </function>
+    <function name="WorldBossCombatEnd" doc="世界BOSS战斗结束">
+      <arg name="dmgList" type="WorldBossDamageDB" arraySize="Dynamic" doc="伤害列表"/>
+      <arg name="hitPlayer" type="PlayerNameDB" doc="击杀玩家"/>
+    </function>
+    <!--Message-->
+    <function name="AddChatText" doc="增加聊天内容">
+      <arg name="channel" type="int"  doc="频道"/>
+      <arg name="talkerId" type="entityId" doc="说话Id"/>
+      <arg name="talkerName" type="string" doc="说话名字"/>
+      <arg name="text" type="string"  doc="内容"/>
+    </function>
+    <function name="AddPrivateChatText" doc="增加私聊内容">
+      <arg name="talkerId" type="entityId" doc="说话Id"/>
+      <arg name="talkerName" type="string" doc="说话名字"/>
+      <arg name="targetId" type="entityId" doc="目标Id"/>
+      <arg name="targetName" type="string" doc="目标名字"/>
+      <arg name="text" type="string"  doc="内容"/>
+    </function>
+    <function name="ErrorPrompt" doc="错误提示">
+      <arg name="promptId" type="int"  doc="提示Id"/>
+    </function>
+    <!--关卡-->
+    <function name="UpdateNormalMaxLevelId" doc="更新普通副本最大关卡Id">
+      <arg name="maxId" type="int" doc="最大Id"/>
+    </function>
+    <function name="UpdateBossRushMaxLevelId" doc="更新BossRush最大关卡Id">
+      <arg name="maxId" type="int" doc="最大Id"/>
+    </function>
+    <function name="UpdateEliteMaxLevelId" doc="更新精英副本最大关卡Id">
+      <arg name="maxId" type="int" doc="最大Id"/>
+    </function>
+    <function name="UpdateEliteLevelInfo" doc="更新精英关卡信息">
+      <arg name="type" type="EliteLevelDB"  doc="精英关卡信息"/>
+    </function>
+    <function name="ClearEliteLevelInfo" doc="清空精英关卡信息"/>
+    <function name="LevelDropGuide" doc="关卡掉落引导">
+      <arg name="resType" type="int"  doc="资源类型"/>
+      <arg name="resId" type="int"  doc="资源ID"/>
+    </function>
+    <!--挂机-->
+    <function name="OnHookUpdated" doc="初始化挂机信息">
+      <arg name="type" type="int"  doc="类型"/>
+      <arg name="val" type="int"  doc="参数"/>
+      <arg name="startTime" type="int"  doc="开始"/>
+      <arg name="totalTimes" type="int"  doc="总次数"/>
+    </function>
+    <function name="OnHookCompleted" doc="挂机完成">
+      <arg name="resources" type="ResourceDB" arraySize="Dynamic" doc="奖励列表"/>
+      <arg name="isOpenHidden" type="int"  doc="开启隐藏关卡 0:否 1:是"/>
+    </function>
+    <!--技能-->
+    <function name="LearnSpell" doc="学会技能">
+      <arg name="spellId" type="int"  doc="技能Id"/>
+      <arg name="enabledSlot" type="int"  doc="技能上到快捷栏的位置(大于0为技能栏位，否则不上)"/>
+    </function>
+    <function name="SpellEnabled" doc="技能被启用">
+      <arg name="spellId" type="int"  doc="技能Id"/>
+      <arg name="spellSlot" type="int"  doc="技能快捷栏"/>
+    </function>
+    <!--坐骑-->
+    <function name="UpdateMountLuck" doc="更新坐骑幸运值">
+      <arg name="val" type="int"  doc="当前幸运值"/>
+    </function>
+    <function name="UpdateMountLevel" doc="更新坐骑等级">
+      <arg name="level" type="int"  doc="当前等级"/>
+    </function>
+    <!--公会-->
+    <function name="RemovedFromGuild" doc="退出公会"/>
+    <!--奖励-->
+    <function name="UpdateArenaRewardRank" doc="更新竞技场奖励排名">
+      <arg name="rank" type="int"  doc="排名"/>
+    </function>
+    <function name="UpdateWorldBossRewardRank" doc="更新世界BOSS奖励排名">
+      <arg name="rank" type="int"  doc="排名"/>
+      <arg name="bossLevel" type="int"  doc="Boss等级"/>
+    </function>
+    <function name="AddWorldBossKillReward" doc="更新世界BOSS击杀奖励">
+      <arg name="bossLevel" type="int"  doc="Boss等级"/>
+    </function>
+    <function name="UpdateHiddenLevelScore" doc="更新隐藏关卡分数">
+      <arg name="score" type="int"  doc="分数"/>
+    </function>
+    <function name="UpdateHiddenLevelOpenedNum" doc="更新隐藏关卡已今日开启数量">
+      <arg name="num" type="int"  doc="开启数量"/>
+    </function>
+    <function name="ClearHiddenLevelGotFlags" doc="清除隐藏关卡领取标志"/>
+    <function name="AddOneGMGift" doc="添加一个GM礼包">
+      <arg name="giftId" type="int"  doc="礼包Id"/>
+      <arg name="title" type="string"  doc="标题"/>
+      <arg name="desc" type="string"  doc="描述"/>
+    </function>
+    <function name="UpdateRoleCollectReward" doc="更新伙伴收集奖励"/>
+    <!--玩家状态-->
+    <function name="UpdatePlayerState" doc="更新玩家状态">
+      <arg name="bit" type="int"  doc="位"/>
+      <arg name="val" type="int"  doc="0/1"/>
+    </function>
+    <!--公告-->
+    <function name="GameNotice" doc="游戏公告">
+      <arg name="strId" type="int"  doc="字符Id"/>
+      <arg name="strArgs" type="string" arraySize="Dynamic" doc="字符参数"/>
+    </function>
+    <function name="GameNoticeText" doc="游戏公告文字">
+      <arg name="txt" type="string"  doc="公告文字"/>
+    </function>
+    <!--运营活动-->
+    <function name="UpdateOnlineReward" doc="更新在线奖励">
+      <arg name="id" type="int" doc="奖励Id"/>
+      <arg name="getTimes" type="int" doc="领取时间"/>
+    </function>
+    <function name="UpdateLoginReward" doc="更新登录奖励">
+      <arg name="days" type="int" doc="登录天数"/>
+      <arg name="gotDays" type="int" doc="已领取天数"/>
+    </function>
+  </AS3>
+  <!--as3 end-->
+  <!--cpp start-->
+  <cpp>
+    <function name="Login" doc="登录" requireState="Connected">
+      <arg name="token" type="string" doc="session"/>
+      <arg name="info" type="string" doc="额外信息"/>
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="isCreate" type="int" doc="0不需要创建"/>
+      <ret name="maleNames" type="string"  arraySize="Dynamic" doc="男名列表"/>
+      <ret name="femaleNames" type="string"  arraySize="Dynamic" doc="女名列表"/>
+    </function>
+    <function name="Logon" doc="登录" requireState="Connected">
+      <arg name="token" type="string" doc="session"/>
+      <arg name="account" type="string" doc="账号"/>
+      <arg name="serverId" type="int" doc="服务器Id"/>
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="isCreate" type="int" doc="0不需要创建"/>
+      <ret name="maleNames" type="string"  arraySize="Dynamic" doc="男名列表"/>
+      <ret name="femaleNames" type="string"  arraySize="Dynamic" doc="女名列表"/>
+    </function>
+    <function name="ReqestEnterGame" doc="请求进入游戏" requireState="Authenticated"/>
+    <!--时间同步-->
+    <function name="SynTime" doc="时间同步" requireState="Authenticated,InGame">
+      <arg name="cTime" type="int64" doc="客户端时刻 ms"/>
+      <ret name="cTime" type="int64" doc="客户端时刻 ms"/>
+      <ret name="sTime" type="int64" doc="服务器时刻 ms"/>
+    </function>
+    <!--创建角色-->
+    <function name="CreatPlayer" doc="创建角色"  requireState="CreateRole">
+      <arg name="name" type="string" doc="名字"/>
+      <arg name="roleId" type="int" doc="角色Id"/>
+      <ret name="rs" type="int">
+        <errcode code="0" success="true" doc="成功"/>
+        <errcode code="1" notify="名字长度不规范"/>
+        <errcode code="2" notify="含有非法字符"/>
+        <errcode code="3" notify="名字已被占用"/>
+        <errcode code="4" notify="亲！网络不给力，请重试！"/>
+      </ret>
+    </function>
+    <function name="ReqestCreateRoleNames" doc="请求名字列表" requireState="CreateRole">
+      <arg name="sex" type="int" doc="性别:0男，1女"/>
+      <ret name="rsSex" type="int" doc="0男 1女"/>
+      <ret name="names" type="string" arraySize="Dynamic"  doc="名字列表"/>
+    </function>
+    <!--移动-->
+    <function name="MovePos" doc="移动到指定坐标">
+      <arg name="posX" type="int" doc="目地X坐标"/>
+      <arg name="posY" type="int" doc="目地Y坐标"/>
+    </function>
+    <function name="MoveStop" doc="停止移动">
+      <arg name="posX" type="int" doc="X坐标"/>
+      <arg name="posY" type="int" doc="Y坐标"/>
+    </function>
+    <!--场景-->
+    <function name="RequestLeaveScene" doc="请求离开场景" local="1">
+      <arg name="sceneId" type="int" doc="场景ID"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="RequestCityPlayers" doc="请求大厅玩家列表">
+      <ret name="players" type="CityPlayerDB" arraySize="Dynamic"  doc="玩家列表"/>
+    </function>
+    <!--战斗-->
+    <function name="CastSpellByTarget" doc="按目标施放技能" local="1">
+      <arg name="spellId" type="int"  doc="技能Id"/>
+      <arg name="entityId" type="entityId" doc="目标Id"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="CastSpellByPos" doc="按位置施放技能" local="1">
+      <arg name="spellId" type="int"  doc="技能Id"/>
+      <arg name="posX" type="int" doc="X坐标"/>
+      <arg name="posY" type="int" doc="Y坐标"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="CombatReady" doc="战斗准备" local="1">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="RequestDungeonCombat" doc="请求副本关卡战斗">
+      <arg name="levelId" type="int"  doc="关卡ID"/>
+      <arg name="levelArg" type="int"  doc="关卡参数(BossRush关卡:掉落倍数)"/>
+      <ret name="rs" type="int" doc="0成功">
+        <errcode code="0" success="true" doc="成功"/>
+        <errcode code="2" notify="请先停止挂机"/>
+        <errcode code="3" notify="体力不足"/>
+        <errcode code="4" notify="物品已满"/>
+        <errcode code="5" notify="伙伴已满"/>
+      </ret>
+    </function>
+    <function name="RequestHiddenLevelCombat" doc="请求隐藏关卡战斗">
+      <arg name="levelIndex" type="int"  doc="关卡下标"/>
+      <ret name="rs" type="int" doc="0成功">
+        <errcode code="0" success="true" doc="成功"/>
+        <errcode code="2" notify="请先停止挂机"/>
+        <errcode code="3" notify="体力不足"/>
+        <errcode code="4" notify="物品已满"/>
+        <errcode code="5" notify="伙伴已满"/>
+      </ret>
+    </function>
+    <function name="RequestDramaCombat" doc="请求剧情战斗">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="CombatNextWave" doc="战斗下一波" local="1">
+      <ret name="rs" type="int" doc="0成功">
+        <errcode code="0" success="true" doc="成功"/>
+        <errcode code="2" notify="波次已耗尽"/>
+      </ret>
+      <ret name="cdTime" type="int" doc="冷却结束时间"/>
+    </function>
+    <function name="CombatRegenMp" doc="战斗中恢复法力" local="1">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="CombatEscrow" doc="战斗托管" local="1">
+      <arg name="state" type="int"  doc="0停止托管 1托管"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="RequestLevelFirstKill" doc="求情关卡首杀信息">
+      <arg name="levelId" type="int"  doc="关卡ID"/>
+      <ret name="name" type="string" doc="玩家名字"/>
+    </function>
+    <function name="RequestCombatFormation" doc="求情战斗布阵信息">
+      <arg name="combatType" type="int"  doc="战斗类型 1:副本 2竞技场"/>
+      <arg name="arg" type="int"  doc="参数 关卡Id 竞技场位置"/>
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="roles" type="RolePos" arraySize="Dynamic" doc="角色列表"/>
+    </function>
+    <function name="CombatImmediatelyWin" doc="战斗立即胜利" local="1">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="RequestLocalDungeonCombat" doc="请求本地副本战斗">
+      <arg name="levelId" type="int"  doc="关卡ID"/>
+      <arg name="levelArg" type="int"  doc="关卡参数(BossRush关卡:掉落倍数)"/>
+      <ret name="rs" type="int" doc="0成功">
+        <errcode code="0" success="true" doc="成功"/>
+        <errcode code="2" notify="请先停止挂机"/>
+        <errcode code="3" notify="体力不足"/>
+        <errcode code="4" notify="物品已满"/>
+        <errcode code="5" notify="伙伴已满"/>
+      </ret>
+      <ret name="combatRoles" type="CombatRoleDB" arraySize="Dynamic" doc="角色列表"/>
+      <ret name="dropResources" type="ResourceDB" arraySize="Dynamic" doc="掉落资源"/>
+      <ret name="dropCritType" type="int" doc="掉落暴击资源类型"/>
+    </function>
+    <function name="RequestLocalHiddenCombat" doc="请求本地隐藏战斗">
+      <arg name="levelIndex" type="int"  doc="关卡下标"/>
+      <ret name="rs" type="int" doc="0成功">
+        <errcode code="0" success="true" doc="成功"/>
+        <errcode code="2" notify="请先停止挂机"/>
+        <errcode code="3" notify="体力不足"/>
+        <errcode code="4" notify="物品已满"/>
+        <errcode code="5" notify="伙伴已满"/>
+      </ret>
+      <ret name="monsterLevel" type="int" doc="怪物等级"/>
+      <ret name="combatRoles" type="CombatRoleDB" arraySize="Dynamic" doc="角色列表"/>
+    </function>
+    <function name="RequestLocalDramaCombat" doc="请求地剧情战斗">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="LocalCombatEnd" doc="本地战斗结束">
+      <arg name="flag" type="int"  doc="1:胜利 2:失败"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="GetPVPCombatInfo" doc="获得PVP战斗双方信息">
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="selfInfo" type="int" arraySize="Dynamic" doc="己方信息(等级、坐骑战力、伙伴总战力、宝石战力、天赋战力、装备战力)"/>
+      <ret name="targetInfo" type="int" arraySize="Dynamic" doc="敌方信息(等级、坐骑战力、伙伴总战力、宝石战力、天赋战力、装备战力)"/>
+    </function>
+    <!--关卡-->
+    <function name="ResetEliteLevel" doc="重置精英关卡">
+      <arg name="levelId" type="int"  doc="关卡ID"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <!--挂机-->
+    <function name="StartOnHook" doc="开始挂机">
+      <arg name="type" type="int"  doc="类型 1普通本 2精英本"/>
+      <arg name="val" type="int"  doc="参数"/>
+      <arg name="times" type="int"  doc="挂机次数"/>
+      <ret name="rs" type="int">
+        <errcode code="0" success="true"/>
+        <errcode code="2" notify="物品已满"/>
+        <errcode code="3" notify="伙伴已满"/>
+      </ret>
+    </function>
+    <function name="CancelOnHook" doc="取消挂机">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="SpeedUpOnHook" doc="加速挂机">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="CompleteOnHook" doc="完成挂机">
+      <ret name="startTime" type="int" doc="挂机开始时间 0为失败"/>
+    </function>
+    <!--技能-->
+    <function name="EnableSpell" doc="启用技能">
+      <arg name="type" type="int" doc="配置类型 1普通 2竞技场 3世界Boss"/>
+      <arg name="pos" type="int" doc="位置"/>
+      <arg name="spellId" type="int" doc="技能Id"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <!--伙伴-->
+    <function name="EnablePartner" doc="伙伴上阵">
+      <arg name="type" type="int" doc="配置类型 1普通 2竞技场 3世界Boss"/>
+      <arg name="rolePos" type="int"  doc="伙伴位置"/>
+      <arg name="roleId" type="int"  doc="伙伴Id"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="DismissalPartner" doc="解雇伙伴">
+      <arg name="indexs" type="int" arraySize="Dynamic" doc="伙伴位置列表"/>
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="idxs" type="int" arraySize="Dynamic" doc="已解雇的伙伴位置"/>
+      <ret name="money" type="int" doc="金币"/>
+      <ret name="rareSoul" type="int" doc="蓝色精华"/>
+      <ret name="epicSoul" type="int" doc="紫色精华"/>
+    </function>
+    <function name="LevelUpPartner" doc="伙伴升级">
+      <arg name="rolePos" type="int" doc="伙伴位置"/>
+      <arg name="level" type="int" doc="需要升到的等级"/>
+      <ret name="rs" type="int" doc="升级后等级(0为失败)"/>
+    </function>
+    <function name="RoleChangeClass" doc="转职">
+      <arg name="rolePos" type="int" doc="伙伴位置"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="RequestRoleProps" doc="请求伙伴属性列表">
+      <arg name="rolePos" type="int" doc="伙伴位置"/>
+      <ret name="props" type="int" arraySize="Dynamic" doc="属性列表"/>
+    </function>
+    <function name="ComposePartner" doc="合成伙伴">
+      <arg name="rolePos1" type="int" doc="伙伴位置1"/>
+      <arg name="rolePos2" type="int" doc="伙伴位置2"/>
+      <ret name="rolePos" type="int" doc="0:失败，大于0为提升伙伴位置"/>
+      <ret name="level" type="int" doc="提升伙伴位置的新等级"/>
+      <ret name="classLevel" type="int" doc="提升伙伴位置的新转职等级"/>
+    </function>
+    <!--任务-->
+    <function name="AccepteQuest" doc="接取任务">
+      <arg name="questId" type="int"  doc="任务Id"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="ComleteQuest" doc="完成任务">
+      <arg name="questId" type="int"  doc="任务Id"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <!--物品-->
+    <function name="EquipEquipment" doc="穿戴装备">
+      <arg name="itemPos" type="int"  doc="物品位置"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="UnEquipEquipment" doc="取下装备">
+      <arg name="pos" type="int"  doc="物品表中的位置"/>
+      <ret name="rs" type="int">
+        <errcode code="0" success="true"/>
+        <errcode code="2" notify="背包已满"/>
+      </ret>
+    </function>
+    <function name="SellItem" doc="出售物品">
+      <arg name="itemPos" type="int" doc="物品位置"/>
+      <ret name="money" type="int" doc="出售获得金币 0为失败"/>
+      <ret name="badge" type="int" doc="出售获得徽章"/>
+      <ret name="item" type="IntInt" doc="出售获得物品"/>
+    </function>
+    <function name="UseItem" doc="使用物品">
+      <arg name="pos" type="int"  doc="物品表中的位置"/>
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="resources" type="ResourceDB" arraySize="Dynamic" doc="获得资源列表"/>
+    </function>
+    <function name="ComposeItem" doc="合成物品">
+      <arg name="type" type="int" doc="1装备2背包"/>
+      <arg name="indexs" type="int" arraySize="Dynamic" doc="物品位置列表(非0位置为材料)"/>
+      <ret name="rs" type="int">
+        <errcode code="0" success="true"/>
+        <errcode code="2" notify="金币不足"/>
+      </ret>
+    </function>
+    <function name="SortItems" doc="整理物品"/>
+    <!--宝石-->
+    <function name="InsertGem" doc="镶嵌宝石">
+      <arg name="formation" type="int"  doc="阵型位置"/>
+      <arg name="packet" type="int"  doc="宝石包位置"/>
+      <arg name="gemId" type="int"  doc="宝石Id"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="RemoveGem" doc="取下宝石">
+      <arg name="formation" type="int"  doc="阵型位置"/>
+      <arg name="packet" type="int"  doc="宝石包位置"/>
+      <arg name="gemId" type="int"  doc="宝石Id"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="SyntheticGem" doc="合成宝石">
+      <arg name="gemId" type="int"  doc="宝石Id"/>
+      <arg name="gemNum" type="int"  doc="数量"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="SyntheticFormationGem" doc="合成阵型中的宝石">
+      <arg name="formation" type="int"  doc="阵型位置"/>
+      <arg name="packet" type="int"  doc="宝石包位置"/>
+      <arg name="gemId" type="int"  doc="宝石Id"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="ShortcutInsertGem" doc="一键镶嵌宝石">
+      <arg name="fmtSlot" type="int"  doc="阵型位置"/>
+    </function>
+    <function name="ShortcutRemoveGem" doc="一键取下宝石">
+      <arg name="fmtSlot" type="int"  doc="阵型位置"/>
+    </function>
+    <!--Arena-->
+    <function name="RequestArenaInfo" doc="获得竞技场信息"/>
+    <function name="RequestArenaCombat" doc="请求竞技场战斗">
+      <arg name="pos" type="int"  doc="挑战位置"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="BuyArenaCombatTime" doc="购买竞技场战斗次数">
+      <arg name="times" type="int"  doc="购买次数"/>
+      <ret name="rs" type="int" doc="大于0为当前次数"/>
+    </function>
+    <function name="RequestArenaRanks" doc="获得竞技场前20排名">
+      <ret name="ranks" type="ArenaPlayerDB" arraySize="Dynamic" doc="排名列表"/>
+      <ret name="rank" type="ArenaPlayerDB" doc="自己排名"/>
+    </function>
+    <!--WorldBoss-->
+    <function name="RequestEnterWorldBoss" doc="请求进入世界BOSS">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="RequestLeaveWorldBoss" doc="请求离开世界BOSS">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="RequestWorldBossCombat" doc="请求世界BOSS战斗">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="RequestReleaseSoul" doc="请求施放灵魂">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <!--Shop-->
+    <function name="BuyPower" doc="购买体力">
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="BuyEquipmentSize" doc="购买物品格子">
+      <arg name="num" type="int"  doc="购买格子数量"/>
+      <ret name="rs" type="int" doc="0失败 大于0为新格子数"/>
+    </function>
+    <function name="BuyPartnerSize" doc="购买伙伴格子">
+      <ret name="rs" type="int" doc="0失败 大于0为新格子数"/>
+    </function>
+    <function name="BuyMoney" doc="购买钱币">
+      <arg name="way" type="int"  doc="方式(0:一次 1:十次)"/>
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="moneys" type="int" arraySize="Dynamic" doc="获得铜钱信息"/>
+    </function>
+    <function name="LotPartner" doc="抽取伙伴">
+      <arg name="way" type="int"  doc="抽取方式(0:一次 1:十次 2:礼券)"/>
+      <ret name="rs" type="int">
+        <errcode code="0" success="true" doc="成功"/>
+        <errcode code="2" notify="伙伴已满"/>
+      </ret>
+      <ret name="partners" type="int" arraySize="Dynamic" doc="伙伴列表"/>
+      <ret name="rareSoul" type="int" doc="蓝色精华"/>
+      <ret name="epicSoul" type="int" doc="紫色精华"/>
+      <ret name="money" type="int" doc="金币"/>
+    </function>
+    <function name="InviteLotPartner" doc="邀请抽取的伙伴">
+      <arg name="pos" type="int" doc="位置"/>
+      <arg name="roleId" type="int" doc="伙伴ID"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="DismissalLotPartner" doc="解雇抽取的伙伴">
+      <ret name="rareSoul" type="int" doc="蓝色精华"/>
+      <ret name="epicSoul" type="int" doc="紫色精华"/>
+      <ret name="money" type="int" doc="金币"/>
+    </function>
+    <function name="ExchangePartner" doc="兑换伙伴">
+      <arg name="roleId" type="int" doc="伙伴ID"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="LotGem" doc="抽取宝石">
+      <arg name="way" type="int"  doc="抽取方式(0:一次 1:十次 2:五十次 3:礼券)"/>
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="resources" type="ResourceDB" arraySize="Dynamic" doc="资源列表"/>
+    </function>
+    <function name="ShopBuyResource" doc="商店购买">
+      <arg name="id" type="int"  doc="商店出售Id"/>
+      <arg name="num" type="int"  doc="数量"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <!--Message-->
+    <function name="Chat" doc="聊天">
+      <arg name="channel" type="int"  doc="频道"/>
+      <arg name="text" type="string"  doc="内容"/>
+      <ret name="rs" type="int">
+        <errcode code="0" success="true" doc="成功"/>
+        <errcode code="2" notify="说话太快"/>
+      </ret>
+    </function>
+    <function name="PrivateChat" doc="私聊">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家ID"/>
+      <arg name="text" type="string"  doc="内容"/>
+      <ret name="rs" type="int">
+        <errcode code="0" success="true" doc="成功"/>
+        <errcode code="1" notify="玩家不在线"/>
+      </ret>
+    </function>
+    <function name="FindOnlinePlayerId" doc="查找在线玩家">
+      <arg name="playerName" type="string"  doc="玩家名"/>
+      <ret name="playerId" type="entityId" doc="玩家ID，0为不在线"/>
+    </function>
+    <!--坐骑-->
+    <function name="FeedMount" doc="喂养坐骑">
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="level" type="int" doc="坐骑等级"/>
+      <ret name="luck" type="int" doc="坐骑幸运值"/>
+    </function>
+    <!--好友-->
+    <function name="RequestFriendList" doc="请求好友列表">
+      <ret name="friends" type="FriendDB" arraySize="Dynamic" doc="好友列表"/>
+    </function>
+    <function name="AddFriendById" doc="通过ID添加好友">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家ID"/>
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="friend" type="FriendDB" doc="好友"/>
+    </function>
+    <function name="AddFriendByName" doc="通过名字添加好友">
+      <arg name="playerName" type="string"  doc="玩家名字"/>
+      <ret name="rs" type="int" doc="0成功"/>
+      <ret name="friend" type="FriendDB" doc="好友"/>
+    </function>
+    <function name="RemoveFriend" doc="删除好友">
+      <arg name="playerId" type="entityId"  itemType="Player" doc="玩家ID"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="RequestPlayerInfo" doc="请求玩家信息">
+      <arg name="playerId" type="entityId" itemType="Player" doc="目标ID"/>
+      <ret name="playerInfo" type="PlayerInfoDB"  doc="玩家信息"/>
+    </function>
+    <!--公会-->
+    <function name="CreateGuild" doc="创建公会">
+      <arg name="name" type="string"  doc="公会名称"/>
+      <ret name="rs" type="int">
+        <errcode code="0" success="true" doc="成功"/>
+        <errcode code="1" notify="名字长度不规范"/>
+        <errcode code="2" notify="含有非法字符"/>
+        <errcode code="3" notify="名字已被占用"/>
+        <errcode code="4" notify="亲！网络不给力，请重试！"/>
+      </ret>
+    </function>
+    <function name="LeaveGuild" doc="离开公会">
+      <ret name="rs" type="int"  doc="0成功"/>
+    </function>
+    <function name="RequestGuildList" doc="请求公会列表">
+      <ret name="guilds" type="GuildDD" arraySize="Dynamic" doc="公会列表"/>
+    </function>
+    <function name="ApplyJoinGuild" doc="申请加入公会">
+      <arg name="guildId" type="entityId" itemType="Guild" doc="公会Id"/>
+      <ret name="rs" type="int"  doc="0成功"/>
+    </function>
+    <function name="ProcJoinGuildApply" doc="入公申请处理">
+      <arg name="answer" type="int"  doc="0拒绝 1通过"/>
+      <ret name="rs" type="int"  doc="0成功"/>
+    </function>
+    <function name="ModifyGuildMemberPosition" doc="修改公会成员职位">
+      <arg name="targetId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="type" type="int"  doc="0降职 1升职"/>
+      <ret name="rs" type="int"  doc="0成功"/>
+    </function>
+    <function name="TransferGuildChairman" doc="移交公会会长">
+      <arg name="targetId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <ret name="rs" type="int"  doc="0成功"/>
+    </function>
+    <function name="RemovedMemberFromGuild" doc="移出公会">
+      <arg name="targetId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <ret name="rs" type="int"  doc="0成功"/>
+    </function>
+    <!--Debug-->
+    <function name="NBSet" doc="牛B"/>
+    <function name="Debug_ModifyPassedLevel" doc="修改已通关卡">
+      <arg name="type" type="int" doc="类型"/>
+      <arg name="levelId" type="int" doc="ID"/>
+    </function>
+    <function name="Debug_ModifyMoney" doc="修改金币">
+      <arg name="value" type="int" doc="修改值"/>
+    </function>
+    <function name="Debug_ModifyGold" doc="修改符石">
+      <arg name="value" type="int" doc="修改值"/>
+    </function>
+    <function name="Debug_ModifyPower" doc="修改体力">
+      <arg name="value" type="int" doc="修改值"/>
+    </function>
+    <function name="Debug_ModifyPartnerExp" doc="修改伙伴经验">
+      <arg name="value" type="int" doc="修改值"/>
+    </function>
+    <function name="Debug_AddExp" doc="添加经验">
+      <arg name="value" type="int" doc="修改值"/>
+    </function>
+    <function name="Debug_AddItem" doc="添加物品">
+      <arg name="itemId" type="int" doc="物品ID"/>
+      <arg name="itemNum" type="int" doc="物品数量"/>
+    </function>
+    <function name="Debug_AddGem" doc="添加宝石">
+      <arg name="gemId" type="int" doc="宝石ID"/>
+    </function>
+    <function name="Debug_AddPartner" doc="添加伙伴">
+      <arg name="roleId" type="int" doc="角色ID"/>
+    </function>
+    <function name="Debug_ModifyVipLevel" doc="修改VIP等级">
+      <arg name="level" type="int" doc="VIP等级"/>
+    </function>
+    <function name="Debug_ModifyMountLevel" doc="修改坐骑等级">
+      <arg name="level" type="int" doc="坐骑等级"/>
+    </function>
+    <function name="Debug_ModifyCompletedQuest" doc="修改已完成任务">
+      <arg name="questId" type="int" doc="任务ID"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="Debug_SimulatePassedLevel" doc="模拟通关关卡">
+      <arg name="levelId" type="int" doc="关卡ID"/>
+    </function>
+    <function name="Debug_PassLevelWin" doc="胜利通关关卡" local="1"/>
+    <!--GM-->
+    <function name="GM_Login" doc="GM登录" requireState="Connected">
+      <arg name="sessinId" type="string" doc="Session"/>
+      <arg name="serverId" type="int" doc="服务器Id"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="gmLevel" type="int"  doc="GM等级"/>
+    </function>
+    <function name="GM_BanPlayerById" doc="踢人下线" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="expireTime" type="int" doc="解封时间 0解封 -1永久"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GM_SetVipLevel" doc="设置VIP等级" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="VipLevel" type="int" doc="Vip等级"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GM_ModifyMoney" doc="修改金币" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="val" type="int" doc="数量"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="newVal" type="int" doc="修改后数量"/>
+    </function>
+    <function name="GM_ModifyGold" doc="修改符石" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="val" type="int" doc="数量"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="newVal" type="int" doc="修改后数量"/>
+    </function>
+    <function name="GM_ModifyPower" doc="修改体力" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="val" type="int" doc="数量"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="newVal" type="int" doc="修改后数量"/>
+    </function>
+    <function name="GM_ModifyExp" doc="修改经验" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="val" type="int" doc="数量"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="newVal" type="int" doc="修改后数量"/>
+    </function>
+    <function name="GM_ModifyExpItem" doc="修改伙伴经验" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="val" type="int" doc="数量"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="newVal" type="int" doc="修改后数量"/>
+    </function>
+    <function name="GM_AddItem" doc="添加物品" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="itemId" type="int" doc="物品Id"/>
+      <arg name="itemNum" type="int" doc="物品数量"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GM_AddRole" doc="添加伙伴" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="roleId" type="int" doc="伙伴Id"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GM_AddGem" doc="添加宝石" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="gemId" type="int" doc="宝石Id"/>
+      <arg name="gemNum" type="int" doc="宝石数量"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GM_RequestPlayer" doc="请求玩家信息" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="player" type="GMPlayer" doc="玩家信息"/>
+    </function>
+    <function name="GM_SearchPlayerByName" doc="根据名字模糊查找玩家" requireState="GM">
+      <arg name="keyword" type="string" doc="关键字"/>
+      <ret name="players" type="PlayerVipLevelDB" arraySize="Dynamic" doc="玩家列表"/>
+    </function>
+    <function name="GM_GetServerState" doc="获得户服务器状态" requireState="GM">
+      <ret name="serverId" type="int" doc="服务器ID"/>
+      <ret name="serverTime" type="int" doc="服务器时间"/>
+      <ret name="playerAmount" type="int" doc="角色总数"/>
+      <ret name="onlineAmount" type="int" doc="在线总数"/>
+    </function>
+    <function name="GM_ModifyRoleLevel" doc="修改角色等级" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="rolePos" type="int" doc="角色位置"/>
+      <arg name="level" type="int" doc="等级"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GM_ModifyMountLevel" doc="修改坐骑等级" requireState="GM">
+      <arg name="playerId" type="entityId" itemType="Player" doc="玩家Id"/>
+      <arg name="level" type="int" doc="等级"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GM_PermissionsUpdated" doc="GM权限更新了" requireState="GM"/>
+    <function name="GM_GiftUpdated" doc="礼包更新了" requireState="GM"/>
+    <!--活动-->
+    <function name="ActivitySubmitCard" doc="卡密兑换">
+      <arg name="card" type="string" doc="卡号字符串"/>
+      <ret name="result" type="int" doc="兑换是否成功:1:成功,-1失败,不存在的卡号,-2:这个卡已经被兑换过了,-3这个卡不能在本区使用,-4卡已经过期,-5使用次数达到上限，-6领取奖励失败"/>
+      <ret name="msg" type="string" doc="文字信息"/>
+      <ret name="resources" type="ResourceDB" arraySize="Dynamic" doc="奖励信息"/>
+    </function>
+    <!--引导-->
+    <function name="SetNewbieGuideStep" doc="设置新手引导步骤">
+      <arg name="step" type="int" doc="步骤"/>
+    </function>
+    <!--奖励-->
+    <function name="GetArenaRankReward" doc="获得竞技场排名奖励">
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GetWorldBossRankReward" doc="获得世界BOSS排名奖励">
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GetWorldBossKillReward" doc="获得世界BOSS击杀奖励">
+      <arg name="bossLevel" type="int" doc="Boss等级"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GetHiddenLevelScoreReward" doc="获得隐藏关卡积分奖励">
+      <arg name="type" type="int" doc="0:普通领取 1:符石领取"/>
+      <arg name="idx" type="int" doc="奖励下表 0开始"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GetDailyPower" doc="领取每日体力">
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GetGMGift" doc="领取GM礼包">
+      <arg name="id" type="int" doc="礼包Id"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="GetRoleCollectReward" doc="领取伙伴收集奖励">
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <!--天赋-->
+    <function name="OpenTalentNode" doc="开启天赋节点">
+      <arg name="classId" type="int" doc="职业ID"/>
+      <arg name="nodeId" type="int" doc="天赋节点ID"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="node" type="TalentNodeDB" doc="天赋节点"/>
+    </function>
+    <function name="OpenTalentProp" doc="开启天赋属性">
+      <arg name="classId" type="int" doc="职业ID"/>
+      <arg name="nodeId" type="int" doc="天赋节点ID"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="node" type="TalentNodeDB" doc="0成功 1失败"/>
+    </function>
+    <function name="TalentPropLock" doc="天赋属性锁定">
+      <arg name="classId" type="int" doc="职业ID"/>
+      <arg name="nodeId" type="int" doc="天赋节点ID"/>
+      <arg name="propIndex" type="int" doc="属性下标(0开始)"/>
+      <arg name="isLock" type="int" doc="0解锁 1锁定"/>
+      <ret name="rs" type="int" doc="0成功"/>
+    </function>
+    <function name="ResetTalentProp" doc="重置天赋属性">
+      <arg name="classId" type="int" doc="职业ID"/>
+      <arg name="nodeId" type="int" doc="天赋节点ID"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="node" type="TalentNodeDB" doc="节点新属性"/>
+    </function>
+    <function name="BatchResetTalentProps" doc="批量重置天赋属性">
+      <arg name="classId" type="int" doc="职业ID"/>
+      <arg name="nodeId" type="int" doc="天赋节点ID"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="nodes" type="TalentNodeDB" arraySize="Dynamic" doc="新属性列表"/>
+    </function>
+    <function name="SaveOneTalentProp" doc="保存天赋属性">
+      <arg name="propIndex" type="int" doc="保存属性下标"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+    <function name="ClearBatchTalentProps" doc="清空天赋批量属性"/>
+    <!--伙伴-->
+    <function name="EnchantEquipment" doc="附魔">
+      <arg name="way" type="int" doc="0:一次 1:十次"/>
+      <arg name="pos" type="int" doc="穿戴部位"/>
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="info" type="int" arraySize="Dynamic" doc="0失败 1成功"/>
+    </function>
+    <!--客户端数据-->
+    <function name="UpdateClientFirstState" doc="更新客户端第一次数据">
+      <arg name="value" type="int" doc="保存数据"/>
+    </function>
+    <!--运营活动-->
+    <function name="GetOnlineReward" doc="领取在线奖励">
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+      <ret name="nextId" type="int" doc="下一步奖励Id,0为无"/>
+      <ret name="nextGetTimes" type="int" doc="下一步奖励时间"/>
+    </function>
+    <function name="GetLoginReward" doc="领取登录奖励">
+      <ret name="rs" type="int" doc="0成功 1失败"/>
+    </function>
+  </cpp>
+  <!--cpp end-->
 </RPC>
