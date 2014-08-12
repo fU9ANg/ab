@@ -1,0 +1,94 @@
+
+message pbCreateClient
+{
+    required int32 hp = 1;
+    required int32 mp = 2;
+    required int32 props = 3;
+    required pbSpellClient spells = 4;
+}
+message pbCreateDB
+{
+    required int32 hp = 1;
+    required int32 props = 2;
+    required int32 level = 3;
+}
+
+class ccCreate
+{
+    typedef vector<int> PROPLIST;
+    typedef vector<ccSpell> SPELLLIST;
+    int Level;
+    int Hp;
+    int Mp;
+    PROPLIST  Props;
+    SPELLLIST Spells;
+};
+
+message pbCreatureClient
+{
+    <Property name="PosX" dataType ="int" doc="X坐标"/>
+    <Property name="Buffs" dataType="BuffDB" arraySize="Dynamic" doc="Buff列表"/>
+}
+message pbCreatureDB
+{
+    <Property name="PosY" dataType ="int" doc="Y坐标"/>
+    <Property name="Buffs" dataType="BuffDB" arraySize="Dynamic" doc="Buff列表"/>
+}
+
+
+class ccCreature : public ccCreate
+{
+    <Property name="PosX" dataType ="int" doc="X坐标"/>
+    <Property name="PosY" dataType ="int" doc="Y坐标"/>
+    <Property name="Buffs" dataType="BuffDB" arraySize="Dynamic" doc="Buff列表"/>
+};
+
+class ccBuffer
+{
+    <Property name="Id" dataType="int"/>
+    <Property name="Times" dataType="int" arraySize="Dynamic" doc="层数"/>
+    <Property name="StartTime" dataType="int64" doc="开始时间"/>
+    <Property name="ExpireTime" dataType="int64" doc="过期时间"/>
+};
+message pbBufferClient
+{
+    <Property name="Id" dataType="int"/>
+    <Property name="Times" dataType="int" arraySize="Dynamic" doc="层数"/>
+    <Property name="StartTime" dataType="int64" doc="开始时间"/>
+}
+message pbBufferDB
+{
+    <Property name="Id" dataType="int"/>
+    <Property name="Times" dataType="int" arraySize="Dynamic" doc="层数"/>
+    <Property name="ExpireTime" dataType="int64" doc="过期时间"/>
+}
+
+class ccSpell
+{
+    <Property name="Id" dataType="int"/>
+    <Property name="Name" dataType="string"/>
+    <Property name="CastTime" dataType="int"/>
+    <Property name="CDTime" dataType="int"/>
+    <Property name="CostMp" dataType="int"/>
+    <Property name="UseTime" dataType="int"/>
+    <Property name="LastCastTime" dataType="int64"/>
+};
+
+message pbSpellClient
+{
+    <Property name="Id" dataType="int"/>
+    <Property name="Name" dataType="string"/>
+    <Property name="CastTime" dataType="int"/>
+    <Property name="CDTime" dataType="int"/>
+    <Property name="CostMp" dataType="int"/>
+    <Property name="UseTime" dataType="int"/>
+}
+message pbSpellDB
+{
+    <Property name="Id" dataType="int"/>
+    <Property name="Name" dataType="string"/>
+    <Property name="CastTime" dataType="int"/>
+    <Property name="CDTime" dataType="int"/>
+    <Property name="CostMp" dataType="int"/>
+    <Property name="LastCastTime" dataType="int64"/>
+}
