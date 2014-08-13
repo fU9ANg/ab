@@ -1,0 +1,19 @@
+
+message pbSpellClient
+{
+    required int32 Id = 1;
+    required string Name = 2;
+    required int32 CastTime = 3;
+    required int32 CDTime = 4;
+    required int32 CostMp = 5;
+    required int32 UseTime = 6;
+}
+message pbSpellDB
+{
+    required int32 Id = 1;
+    required string Name = 2;
+    required int32 CastTime = 3;
+    required int32 CDTime = 4;
+    required int32 CostMp = 5;
+    required int64 LastCastTime = 6;
+}

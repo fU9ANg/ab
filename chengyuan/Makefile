@@ -1,5 +1,5 @@
 #
-# makefile of test for protobuf
+# makefile of chengyuan
 #
 
 # set src, dst directory and flags for protobuf
@@ -22,21 +22,22 @@ LIB         = -lprotobuf
 
 # objects
 
-MESSAGEOBJS = message/proto/protocol.pb.o message/proto/proto.pb.o
-SERVEROBJS  = server.o \
-              rpcfunctions/RpcFunctionBase.o \
-              rpcfunctions/Login.o \
-              rpcfunctions/GetTankList.o \
-              ServerRpc.o \
-              RpcManager.o
-CLIENTOBJS  = client.o 
-OBJS        = $(MESSAGEOBJS) $(SERVEROBJS) $(CLIENTOBJS)
+MESSAGEOBJS = message/proto/pbBuffer.pb.o \
+              message/proto/pbCreate.pb.o \
+              message/proto/pbCreature.pb.o \
+              message/proto/pbSpell.pb.o
+
+OBJS        = test.o \
+              ccBuffer.o \
+              ccCreate.o \
+              ccCreature.o \
+              ccSpell.o
 
 # binary
-BIN	        = server client
+BIN	        = chengyuan
 
 # where are include files kept
-INC	        = -I. -I./message -I./rpcfunctions
+INC	        = -I. -I./message
 
 # rock..
 all: clean precompile_protobuf $(BIN)
@@ -44,10 +45,8 @@ all: clean precompile_protobuf $(BIN)
 precompile_protobuf:
 	$(PROTOC) $(PBFLAGS)=$(PBDST) $(PBSRC)/*
 
-server:$(SERVEROBJS) $(MESSAGEOBJS)
-	$(CPP) $(CFLAGS) $(CDEBUG) -o $@ $(SERVEROBJS) $(MESSAGEOBJS) $(LIB)
-client:$(CLIENTOBJS) $(MESSAGEOBJS)
-	$(CPP) $(CFLAGS) $(CDEBUG) -o $@ $(CLIENTOBJS) $(MESSAGEOBJS) $(LIB)
+$(BIN):$(OBJS) $(MESSAGEOBJS)
+	$(CPP) $(CFLAGS) $(CDEBUG) -o $@ $(OBJS) $(MESSAGEOBJS) $(LIB)
 
 %.o:%.cpp
 	$(CPP) $(CFLAGS) $(CDEBUG) $(INC) -o $@ -c $<

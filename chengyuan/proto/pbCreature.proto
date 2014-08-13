@@ -1,0 +1,13 @@
+
+import "proto/pbBuffer.proto";
+
+message pbCreatureClient
+{
+    required int32 PosX = 1;
+    repeated pbBufferClient Buffs = 2;
+}
+message pbCreatureDB
+{
+    required int32 PosY = 1;
+    repeated pbBufferClient Buffs = 2;
+}

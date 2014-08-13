@@ -1,0 +1,14 @@
+
+message pbBufferClient
+{
+    required int32 Id = 1;
+    required int64 StartTime = 2;
+    repeated int32 Times = 3;
+}
+message pbBufferDB
+{
+    required int32 Id = 1;
+    required int64 ExpireTime = 2;
+    repeated int32 Times = 3;
+}
+
