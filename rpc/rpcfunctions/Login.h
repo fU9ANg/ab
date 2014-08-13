@@ -23,6 +23,11 @@ namespace RpcFunctions {
                 string message;
                 (void) rlt;
                 (void) message;
+                v;
+                for (...) {
+                    obj = v.SerializeToClient ();
+                    pbObj.set_allocated_create (&obj);
+                }
 #if 0
                 // packet
                 pbLoginRet pbObj;

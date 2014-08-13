@@ -22,7 +22,11 @@ public:
     typedef vector<ccSpell> SPELLLIST;
 
 public:
-    std::string SerializeToClient (void)
+    std::string Serialize (flag)
+    {
+    }
+protected:
+    pbCreateClient SerializeToClient (void)
     {
         pbCreateClient tmp_obj_create_client_;
 
@@ -46,11 +50,7 @@ public:
             tmp_obj_spell_client_->set_usetime (its->UseTime);
         }
 
-        std::string obj_str;
-        if (tmp_obj_create_client_.SerializeToString (&obj_str))
-            return (obj_str);
-        else
-            return ("");
+        return (tmp_obj_create_client_);
     }
     bool ParseFromClient   (string& str) {
         pbCreateClient tmp_obj_create_client_;

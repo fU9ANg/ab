@@ -24,60 +24,62 @@ public:
     typedef vector<ccBuffer> BUFFERLIST;
 
 public:
-    std::string SerializeToClient (void)
-    {
-        pbCreateClient tmp_obj_create_client_;
+    std::string Serialize (enum SerializeFlag) {
+        std::string SerializeStr;
+        bool flag;
 
-        tmp_obj_create_client_.set_hp (Hp);
-        tmp_obj_create_client_.set_mp (Mp);
+        if (SerializeFlag = SF_CLIENT) {
+            pbCreatureClient tmp_obj_creature_client_;
+            tmp_obj_creature_client_ = SerializeToClient ();
 
-        PROPLIST::iterator itp;
-        for (itp=Props.begin(); itp!=Props.end(); itp++) {
-            tmp_obj_create_client_.add_props (*itp);
+            flag = tmp_obj_creature_client_.SerializeToString (&SerializeStr);
+        }
+        else if (SerializeFlag = SF_DB) {
+            pbCreatureDB tmp_obj_creature_db_;
+            tmp_obj_creature_db_ = SerializeToDB ();
+
+            flag = tmp_obj_creature_db_.SerializeToString (&SerializeStr);
         }
 
-        SPELLLIST::iterator its;
-        pbSpellClient* tmp_obj_spell_client_;
-        for (its=Spells.begin(); its!=Spells.end(); its++) {
-            tmp_obj_spell_client_ = tmp_obj_create_client_.add_spells ();
-            tmp_obj_spell_client_->set_id (its->Id);
-            tmp_obj_spell_client_->set_name (its->Name);
-            tmp_obj_spell_client_->set_casttime (its->CastTime);
-            tmp_obj_spell_client_->set_cdtime (its->CDTime);
-            tmp_obj_spell_client_->set_costmp (its->CostMp);
-            tmp_obj_spell_client_->set_usetime (its->UseTime);
-        }
-
-        std::string obj_str;
-        if (tmp_obj_create_client_.SerializeToString (&obj_str))
-            return (obj_str);
+        if (flag)
+            return (SerializeStr);
         else
             return ("");
+
+    }
+protected:
+    pbCreatureClient SerializeToClient (void)
+    {
+        pbCreatureClient tmp_obj_creature_client_;
+        tmp_obj_creature_client_.set_posx (PosX);
+
+        pbCreateClient* tmp_obj_base_p_ = new pbCreateClient;
+        *tmp_obj_base_p_= ccCreate::SerializeToClient ();
+        tmp_obj_creature_client_.set_allocated_base (tmp_obj_base_p_);
+
+        pbBufferClient* tmp_obj_buffer_client_p_;
+        BUFFERLIST::iterator it;
+        for (it = Buffs.begin(); it != Buffs.end(); it++) {
+            tmp_obj_buffer_client_p_ = tmp_obj_creature_client_.add_buffs ();
+            *tmp_obj_buffer_client_p_= it->SerializeToClient ();
+        }
+
+        return (tmp_obj_creature_client_);
     }
 
     bool ParseFromClient   (string& str) {
-        pbCreateClient tmp_obj_create_client_;
-        if (tmp_obj_create_client_.ParseFromString (str)) {
+        pbCreatureClient tmp_obj_creature_client_;
+        if (tmp_obj_creature_client_.ParseFromString (str)) {
 
-            Hp = tmp_obj_create_client_.hp ();
-            Mp = tmp_obj_create_client_.mp ();
+            PosX = tmp_obj_creature_client_.posx ();
 
-            int size;
-            size = tmp_obj_create_client_.props_size ();
+            int size = tmp_obj_creature_client_.buffs_size ();
             for (int i=0; i<size; i++) {
-                Props.push_back (tmp_obj_create_client_.props (i));
-            }
-            size = tmp_obj_create_client_.spells_size ();
-            for (int i=0; i<size; i++) {
-                ccSpell tmp_obj_spell_;
-                tmp_obj_spell_.Id       = tmp_obj_create_client_.spells (i).id ();
-                tmp_obj_spell_.Name     = tmp_obj_create_client_.spells (i).name ();
-                tmp_obj_spell_.CastTime = tmp_obj_create_client_.spells (i).casttime ();
-                tmp_obj_spell_.CDTime   = tmp_obj_create_client_.spells (i).cdtime ();
-                tmp_obj_spell_.CostMp   = tmp_obj_create_client_.spells (i).costmp ();
-                tmp_obj_spell_.UseTime  = tmp_obj_create_client_.spells (i).usetime ();
+                ccBuffer tmp_obj_buffer_;
+                pbBufferClient tmp_obj_buffer_client_ = tmp_obj_creature_client_.buffs(i);
+                tmp_obj_buffer_.ParseFromObject (tmp_obj_buffer_client_);
 
-                Spells.push_back (tmp_obj_spell_);
+                Buffs.push_back (tmp_obj_buffer_);
             }
 
             return (true);

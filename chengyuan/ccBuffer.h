@@ -19,7 +19,7 @@ public:
     typedef std::vector<int> TIMESLIST;
 
 public:
-    std::string SerializeToClient (void) {
+    pbBufferClient SerializeToClient (void) {
         pbBufferClient tmp_obj_buffer_client_;
         tmp_obj_buffer_client_.set_id (Id);
         tmp_obj_buffer_client_.set_starttime (StartTime);
@@ -29,11 +29,7 @@ public:
             tmp_obj_buffer_client_.add_times (*it);
         }
 
-        std::string str;
-        if (tmp_obj_buffer_client_.SerializeToString (&str))
-            return (str);
-        else
-            return ("");
+        return (tmp_obj_buffer_client_);
     }
     bool ParseFromClient   (std::string& str) {
         pbBufferClient tmp_obj_buffer_client_;
@@ -54,6 +50,20 @@ public:
         return (false);
     }
 
+    bool ParseFromObject (pbBufferClient& tmp_obj_buffer_client_) {
+            Id        = tmp_obj_buffer_client_.id ();
+            StartTime = tmp_obj_buffer_client_.starttime ();
+
+            int size;
+            size = tmp_obj_buffer_client_.times_size ();
+            for (int i=0; i<size; i++) {
+                Times.push_back (tmp_obj_buffer_client_.times (i));
+            }
+
+            return (true);
+
+        return (false);
+    }
     std::string SerializeToDB (void) {
         pbBufferDB tmp_obj_buffer_db_;
         tmp_obj_buffer_db_.set_id (Id);

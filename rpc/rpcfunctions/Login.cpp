@@ -11,5 +11,8 @@ void RpcFunctions::Login::Invoke (int clientid, int clienttype, string username,
     cout << "password = " << password;
 
     returnResult ("abc", "def");
+
+    vector <ccCreate> v;
+    returnResult ("abc", 123, 456, v);
 }
 
