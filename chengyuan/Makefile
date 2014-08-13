@@ -37,7 +37,7 @@ OBJS        = test.o \
 BIN	        = chengyuan
 
 # where are include files kept
-INC	        = -I. -I./message
+INC	        = -I. -I./message -I./message/proto
 
 # rock..
 all: clean precompile_protobuf $(BIN)
