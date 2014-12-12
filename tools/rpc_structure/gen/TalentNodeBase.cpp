@@ -1,0 +1,2 @@
+
+#include "TalentNodeBase.h"

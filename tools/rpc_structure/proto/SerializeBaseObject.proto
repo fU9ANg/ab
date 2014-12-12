@@ -1,0 +1,27 @@
+
+package content;
+
+message tkPlayerSerializeDB
+{
+	required	int32		id = 1 [default = 1] ;
+	repeated	tkRoleSerializeDB	roles = 2;			// diffence
+}
+
+message tkRoleSerializeDB
+{
+	required	int32		id = 1;
+    optional    tkCreatureSerializeDB   creature = 2;
+    repeated    tkBufferSerializeDB      buffer  = 3;
+}
+
+message tkCreatureSerializeDB
+{
+	required	int32		creatureid = 1;
+    required    int64       hp = 2;
+}
+
+message tkBufferSerializeDB
+{
+	required	int32		bufferid = 1;
+    required    int32       type    = 2;
+}

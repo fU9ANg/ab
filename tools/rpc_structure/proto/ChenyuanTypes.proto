@@ -1,0 +1,32 @@
+
+package ChenyuanTypes;
+
+message PosSerializeDB
+{
+    required int32                      X                               = 1;
+    required int32                      Y                               = 2;
+}
+
+message TalentPropSerializeDB
+{
+    required int32                      PropId                          = 1;    //属性ID
+    required int32                      PropVal                         = 2;    //属性值
+    required int32                      Locked                          = 3;    //是否锁定
+}
+
+message TalentNodeSerializeDB
+{
+    repeated TalentPropSerializeDB      Props                           = 1;    //天赋属性列表
+}
+
+
+message PlayerSerializeDB
+{
+    required string                     Name                            = 1;    //名称
+    required int32                      RoleId                          = 2;    //角色Id
+
+    optional PosSerializeDB             Pos                             = 3;    //Pos位置
+
+    repeated int32                      SpellList                       = 4;    //技能列表
+    repeated TalentNodeSerializeDB      TalentNodes                     = 5;    //批量洗天赋属性列表
+}
