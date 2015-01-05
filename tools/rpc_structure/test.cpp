@@ -20,11 +20,11 @@ using namespace std;
 
 int main ()
 {
-    std::string             sName = "玩家1";
-    int                     iRoleId = 109;
+    std::string             sName = "玩家________________1111111111111111=========================玩家1";
+    int                     iRoleId = 9999;
     Pos                     oPos;
-    int                     iX = 110;
-    int                     iY = 120;
+    int                     iX = 8130;
+    int                     iY = 82230;
     std::vector<int>        vSpellList;
     std::vector<TalentNodeBase> vTalentNodes;
     std::vector<TalentPropBase> vTalentProps;
@@ -36,7 +36,7 @@ int main ()
     oPos.setY(iY);
 
     for (int i=1; i<=SPELL_NUMBER; i++) {
-        vSpellList.push_back (i);
+        vSpellList.push_back (i+10);
     }
 
     vTalentNodes.clear();
@@ -48,9 +48,9 @@ int main ()
         for (int j=1; j<=TALENTPROP_NUMBER; j++) {
 
             TalentProp objProp;
-            objProp.setPropId (j+1);
-            objProp.setPropVal(j+2);
-            objProp.setLocked (j+3);
+            objProp.setPropId (j+4);
+            objProp.setPropVal(j+6);
+            objProp.setLocked (j+8);
             vTalentProps.push_back(objProp);
         }
         objNode.setTalentProps(vTalentProps);
@@ -67,14 +67,14 @@ int main ()
 
     ////////////////////////// dump object ///////////////////////////
     //
-    p.SerializeObjectToStringForDB(mainstr);
+    p.SerializeObjectToStringForClient(mainstr);
     p.dumpObject();
 
     std::cout << "---------------- mainstr.size() = " << mainstr.size() << " ----------------" << std::endl;
 #if 1
     // Parse to other_object from string
     Player p1;
-    p1.ParseObjectFromStringForDB (mainstr);
+    p1.ParseObjectFromStringForClient (mainstr);
     p1.dumpObject();
 #endif
 

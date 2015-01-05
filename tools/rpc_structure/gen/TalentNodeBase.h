@@ -12,77 +12,29 @@
 
 using namespace std;
 
-typedef std::vector<TalentPropBase> TALENTPROP_VECTOR;
-
 class TalentNodeBase
 {
 public:
+    TalentNodeBase();
     // TalentProps
-    const TALENTPROP_VECTOR& getTalentProps() const {
-        return (m_TalentProps);
-    }
-    TALENTPROP_VECTOR& getTalentProps() {
-        return (m_TalentProps);
-    }
-    TalentPropBase& getTalentProps(int site) {
-        return (m_TalentProps[site]);
-    }
-    const TalentPropBase& getTalentProps(int site) const {
-        return (m_TalentProps[site]);
-    }
-    bool setTalentProps(TALENTPROP_VECTOR& value) {
-        m_TalentProps = value;
-        return (true);
-    }
+    const std::vector<TalentPropBase>& getTalentProps() const;
+    std::vector<TalentPropBase>& getTalentProps();
+    TalentPropBase& getTalentProps(int site);
+    const TalentPropBase& getTalentProps(int site) const;
+    bool setTalentProps(std::vector<TalentPropBase>& value);
 
 private:
     ChenyuanTypes::TalentNodeSerializeDB selfSerializeDB;
-    TALENTPROP_VECTOR   m_TalentProps;
+    ChenyuanTypes::TalentNodeSerializeClient selfSerializeClient;
+    std::vector<TalentPropBase>   m_TalentProps;
 
 public:
-    void dumpObject (void)
-    {
-        std::cout << "------ TalentNode ------" << std::endl;
-        TALENTPROP_VECTOR::iterator it;
-        for (it = m_TalentProps.begin(); it != m_TalentProps.end(); ++it) {
-            (*it).dumpObject();
-        }
-    }
+    void dumpObject (void);
 
-    std::string SerializeObjectToStringForDB (std::string& mainstr)
-    {
-        std::string substr;
-        size_t nlistsize;
-
-        // 4. for user define list type
-        nlistsize = m_TalentProps.size ();
-        PushSizeToString (mainstr, nlistsize);
-        for (size_t i=0; i<nlistsize; i++) {
-            m_TalentProps[i].SerializeObjectToStringForDB(mainstr);
-        }
-
-        return (mainstr);
-    }
-
-    bool ParseObjectFromStringForDB (std::string& mainstr)
-    {
-        std::string substr;
-        unsigned short nsize;
-
-        if (mainstr.empty())
-            return (false);
-
-        // 4. for user define list type
-        m_TalentProps.clear();
-        PopSizeFromString (mainstr, nsize);
-        for (size_t i=0; i<nsize; ++i) {
-            TalentPropBase tmpobj;
-            tmpobj.ParseObjectFromStringForDB (mainstr);
-            m_TalentProps.push_back (tmpobj);
-        }
-
-        return (true);
-    }
+    std::string SerializeObjectToStringForDB (std::string& mainstr);
+    bool ParseObjectFromStringForDB (std::string& mainstr);
+    std::string SerializeObjectToStringForClient (std::string& mainstr);
+    bool ParseObjectFromStringForClient (std::string& mainstr);
 };
 
 #endif  //_GEN_TALENTNODE_H

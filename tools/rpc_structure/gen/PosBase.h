@@ -13,70 +13,27 @@ using namespace std;
 class PosBase
 {
 public:
-    PosBase ()
-    {
-    }
+    PosBase ();
 
-    int getX (void)
-    {
-        return (m_X);
-    }
-    int getY (void)
-    {
-        return (m_Y);
-    }
+    int getX (void);
+    int getY (void);
+    void setX (int x);
+    void setY (int y);
 
-    void setX (int x)
-    {
-        m_X = x;
-    }
-    void setY (int y)
-    {
-        m_Y = y;
-    }
 private:
-    ChenyuanTypes::PosSerializeDB  selfSerializeDB;
+    ChenyuanTypes::PosSerializeDB       selfSerializeDB;
+    ChenyuanTypes::PosSerializeClient   selfSerializeClient;
+
     int     m_X;
     int     m_Y;
 
 public:
-    void dumpObject (void)
-    {
-        std::cout << "------ Pos ------" << std::endl;
-        std::cout << "m_X: " << m_X << std::endl;
-        std::cout << "m_Y: " << m_Y << std::endl;
-    }
-    std::string SerializeObjectToStringForDB (std::string& mainstr)
-    {
-        std::string substr;
+    void dumpObject (void);
 
-        // 1. for base type
-        selfSerializeDB.set_x(getX());
-        selfSerializeDB.set_y(getY());
-
-        selfSerializeDB.SerializeToString (&substr);
-        PushSerializeString (mainstr, substr);
-
-        return (mainstr);
-    }
-
-    bool ParseObjectFromStringForDB (std::string& mainstr)
-    {
-        std::string substr;
-        unsigned short nSize;
-
-        if (mainstr.empty())
-            return (false);
-
-        PopSerializeString(mainstr, substr, nSize);
-        selfSerializeDB.ParseFromString(substr);
-
-        // 1. for base type
-        setX(selfSerializeDB.x());
-        setY(selfSerializeDB.y());
-
-        return (true);
-    }
+    std::string SerializeObjectToStringForDB (std::string& mainstr);
+    bool ParseObjectFromStringForDB (std::string& mainstr);
+    std::string SerializeObjectToStringForClient (std::string& mainstr);
+    bool ParseObjectFromStringForClient (std::string& mainstr);
 };
 
 #endif  // _GEN_POS_H

@@ -1,32 +1,65 @@
 
 package ChenyuanTypes;
 
+
+// Pos Serialize
 message PosSerializeDB
 {
-    required int32                      X                               = 1;
-    required int32                      Y                               = 2;
+    required int32                      x           = 1;
+    required int32                      y           = 2;
+}
+message PosSerializeClient
+{
+    required int32                      x           = 1;
+    required int32                      y           = 2;
 }
 
+
+// Talent Property Serialize
 message TalentPropSerializeDB
 {
-    required int32                      PropId                          = 1;    //属性ID
-    required int32                      PropVal                         = 2;    //属性值
-    required int32                      Locked                          = 3;    //是否锁定
+    required int32                      propid      = 1;    //属性ID
+    required int32                      propval     = 2;    //属性值
+    required int32                      locked      = 3;    //是否锁定
+}
+message TalentPropSerializeClient
+{
+    required int32                      propid      = 1;    //属性ID
+    required int32                      propval     = 2;    //属性值
+    required int32                      locked      = 3;    //是否锁定
 }
 
+
+// Talent Node Serialize
 message TalentNodeSerializeDB
 {
-    repeated TalentPropSerializeDB      Props                           = 1;    //天赋属性列表
+    repeated TalentPropSerializeDB      props       = 1;    //天赋属性列表
+}
+
+message TalentNodeSerializeClient
+{
+    repeated TalentPropSerializeClient  props       = 1;    //天赋属性列表
 }
 
 
+// Player Serialize
 message PlayerSerializeDB
 {
-    required string                     Name                            = 1;    //名称
-    required int32                      RoleId                          = 2;    //角色Id
+    required string                     name        = 1;    //名称
+    required int32                      roleid      = 2;    //角色Id
 
-    optional PosSerializeDB             Pos                             = 3;    //Pos位置
+    optional PosSerializeDB             pos         = 3;    //Pos位置
 
-    repeated int32                      SpellList                       = 4;    //技能列表
-    repeated TalentNodeSerializeDB      TalentNodes                     = 5;    //批量洗天赋属性列表
+    repeated int32                      spelllist   = 4;    //技能列表
+    repeated TalentNodeSerializeDB      talentnodes = 5;    //批量洗天赋属性列表
+}
+message PlayerSerializeClient
+{
+    required string                     name        = 1;    //名称
+    required int32                      roleid      = 2;    //角色Id
+
+    optional PosSerializeClient         pos         = 3;    //Pos位置
+
+    repeated int32                      spelllist   = 4;    //技能列表
+    repeated TalentNodeSerializeClient  talentnodes = 5;    //批量洗天赋属性列表
 }

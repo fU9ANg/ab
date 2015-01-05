@@ -64,4 +64,4 @@ $(BIN):$(OBJS)
 .PHONY: clean
 
 clean:
-	-rm -rf $(OBJS) $(BIN) *~ logs .lock
+	-rm -rf $(OBJS) $(BIN) *~ logs .lock message/*

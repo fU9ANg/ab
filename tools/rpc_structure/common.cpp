@@ -7,7 +7,7 @@
 
 using namespace std;
 
-bool PushSizeToString (std::string& mainstr, unsigned short nsize)
+bool AppendSizeToString (std::string& mainstr, unsigned short nsize)
 {
     if (nsize <= 0)
         return (false);
@@ -21,7 +21,7 @@ bool PushSizeToString (std::string& mainstr, unsigned short nsize)
     return (true);
 }
 
-bool PopSizeFromString (std::string& mainstr, unsigned short &nsize)
+bool ExtractSizeFromString (std::string& mainstr, unsigned short &nsize)
 {
     if (mainstr.empty ())
         return (false);
@@ -34,7 +34,7 @@ bool PopSizeFromString (std::string& mainstr, unsigned short &nsize)
     return (true);
 }
 
-bool PushSerializeString (std::string& mainstr, std::string& str)
+bool AppendObjectToString (std::string& mainstr, std::string& str)
 {
     if (str.empty ())
         return (false);
@@ -49,7 +49,7 @@ bool PushSerializeString (std::string& mainstr, std::string& str)
     return (true);
 }
 
-bool PopSerializeString (std::string& mainstr, std::string& str, unsigned short& size)
+bool ExtractObjectFromString (std::string& mainstr, std::string& str, unsigned short& size)
 {
     if (mainstr.empty ())
         return (false);
