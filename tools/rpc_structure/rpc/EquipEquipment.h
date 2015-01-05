@@ -15,11 +15,11 @@ namespace rpcfunctions
                         std::string mainstr;
                         std::string substr;
 
-                        SRPCEquipEquipmentRlt tmpobj;
-                        tmpobj.set_rs (rs);
-                        tmpobj.SerializeToString (&substr);
+                        // SRPCEquipEquipmentRlt tmpobj;
+                        // tmpobj.set_rs (rs);
+                        // tmpobj.SerializeToString (&substr);
 
-                        SerializeObjectToString (mainstr, substr);
+                        AppendObjectToString (mainstr, substr);
 
                         m_result = mainstr;
                 }

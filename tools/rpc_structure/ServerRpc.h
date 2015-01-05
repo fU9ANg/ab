@@ -8,6 +8,9 @@
 #include "SortItems.h"
 #include "UnEquipEquipment.h"
 #include "UseItem.h"
+#include "RpcFunctionBase.h"
+
+using namespace rpcfunctions;
 
 class ServerRpc
 {

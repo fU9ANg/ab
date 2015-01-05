@@ -1,0 +1,86 @@
+
+package RPCS;
+
+/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * * * * * * * SERVER RPCs DEFINITIONS * * * * * * *
+ * * * * * * * * * * * * * * * * * * * * * * * * * *
+ */
+
+// Server-RPC: EquipEquipment
+message SRPCEquipEquipmentArg
+{
+    required int32 itempos= 1;
+}
+message SRPCEquipEquipmentRlt
+{
+}
+
+// Server-RPC: UnEquipEquipment
+message SRPCUnEquipEquipmentArg
+{
+    required int32 pos    = 1;
+}
+message SRPCUnEquipEquipmentRlt
+{
+}
+
+// Server-RPC: SellItem
+message SRPCSellItemArg
+{
+    required int32 itempos= 1;
+}
+message SRPCSellItemRlt
+{
+}
+
+// Server-RPC: UseItem
+message SPRCUseItemArg
+{
+    required int32 pos    = 1;
+}
+message SPRCUseItemRlt
+{
+}
+
+// Server-RPC: ComposeItem
+message SRPCComposeItemArg
+{
+    required int32 type   = 1;
+    repeated int32 indexs = 2;
+}
+message SRPCComposeItemRlt
+{
+    required int32 type   = 1;
+    repeated int32 indexs = 2;
+}
+
+// Server-RPC: SortItem
+message SRPCSortItemsArg
+{
+}
+message SRPCSortItemsRlt
+{
+}
+
+
+/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * * * * * * * CLIENT RPCs DEFINITIONS * * * * * * *
+ * * * * * * * * * * * * * * * * * * * * * * * * * *
+ */
+
+// Client-RPC: UpdateOneBagItem
+message CRPCUpdateOneBagItem
+{
+}
+
+// Client-RPC: UpdateOneEquipedItem
+message CRPCUpdateOneEquipedItem
+{
+}
+
+// Client-RPC: UpdateBagItems
+message CRPCUpdateBagItems
+{
+}

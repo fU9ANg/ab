@@ -16,12 +16,12 @@ namespace rpcfunctions
                         std::string mainstr;
                         std::string substr;
 
-                        SRPCSellItemRlt tmpobj;
-                        tmpobj.set_money (money);
-                        tmpobj.set_badge (badge);
+                        // SRPCSellItemRlt tmpobj;
+                        // tmpobj.set_money (money);
+                        // tmpobj.set_badge (badge);
+                        // tmpobj.SerializeToString (&substr);
 
-                        tmpobj.SerializeToString (&substr);
-                        SerializeObjectToString (mainstr, substr);
+                        AppendObjectToString (mainstr, substr);
 
                         item.SerializeObjectToString (mainstr);
 

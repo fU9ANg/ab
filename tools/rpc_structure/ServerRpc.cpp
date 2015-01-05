@@ -7,7 +7,7 @@ RpcFunctionBase* ServerRpc::EquipEquipment_HANDLER (std::string mainstr)
         std::string substr;
         int nsize;
 
-        PopObjectFromString (mainstr, substr, nsize);
+        ExtractObjectFromString (mainstr, substr, nsize);
         tmpobj.ParseFromString (substr);
 
         rpcfunctions::EquipEquipment *fnobj = new rpcfunctions::EquipEquipment();
