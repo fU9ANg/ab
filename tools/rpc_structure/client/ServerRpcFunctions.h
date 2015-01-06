@@ -1,4 +1,8 @@
 
+#include "Platform.h"
+#include "ChenyuanTypes.pb.h"
+#include "Rpc.pb.h"
+
 extern void CALL_SERVERRPC (std::string mainstr);
 
 namespace ServerRpcFunctions
@@ -9,4 +13,4 @@ namespace ServerRpcFunctions
         static void UseItem (int pos);
         static void ComposeItem (int type, std::vector<int> indexs);
         static void SortItems (void);
-};
+}

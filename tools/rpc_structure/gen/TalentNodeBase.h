@@ -25,7 +25,7 @@ public:
 
 private:
     ChenyuanTypes::TalentNodeSerializeDB selfSerializeDB;
-    ChenyuanTypes::TalentNodeSerializeClient selfSerializeClient;
+    ChenyuanTypes::TalentNodeSerializeNet selfSerializeNet;
     std::vector<TalentPropBase>   m_TalentProps;
 
 public:
@@ -33,8 +33,8 @@ public:
 
     std::string SerializeObjectToStringForDB (std::string& mainstr);
     bool ParseObjectFromStringForDB (std::string& mainstr);
-    std::string SerializeObjectToStringForClient (std::string& mainstr);
-    bool ParseObjectFromStringForClient (std::string& mainstr);
+    std::string SerializeObjectToStringForNet (std::string& mainstr);
+    bool ParseObjectFromStringForNet (std::string& mainstr);
 };
 
 #endif  //_GEN_TALENTNODE_H

@@ -3,9 +3,9 @@
 
 TalentNodeBase::TalentNodeBase ()
 {
-        ChenyuanTypes::TalentNodeSerializeDB selfSerializeDB;
-        ChenyuanTypes::TalentNodeSerializeClient selfSerializeClient;
-        std::vector<TalentPropBase>   m_TalentProps;
+        selfSerializeDB.Clear();
+        selfSerializeNet.Clear();
+        m_TalentProps.clear();
 }
 
 const std::vector<TalentPropBase>& TalentNodeBase::getTalentProps() const
@@ -74,7 +74,7 @@ bool TalentNodeBase::ParseObjectFromStringForDB (std::string& mainstr)
         return (true);
 }
 
-std::string TalentNodeBase::SerializeObjectToStringForClient (std::string& mainstr)
+std::string TalentNodeBase::SerializeObjectToStringForNet (std::string& mainstr)
 {
         std::string substr;
         size_t nlistsize;
@@ -83,13 +83,13 @@ std::string TalentNodeBase::SerializeObjectToStringForClient (std::string& mains
         nlistsize = m_TalentProps.size ();
         AppendSizeToString (mainstr, nlistsize);
         for (size_t i=0; i<nlistsize; i++) {
-                m_TalentProps[i].SerializeObjectToStringForClient(mainstr);
+                m_TalentProps[i].SerializeObjectToStringForNet(mainstr);
         }
 
         return (mainstr);
 }
 
-bool TalentNodeBase::ParseObjectFromStringForClient (std::string& mainstr)
+bool TalentNodeBase::ParseObjectFromStringForNet (std::string& mainstr)
 {
         std::string substr;
         unsigned short nsize;
@@ -102,7 +102,7 @@ bool TalentNodeBase::ParseObjectFromStringForClient (std::string& mainstr)
         ExtractSizeFromString (mainstr, nsize);
         for (size_t i=0; i<nsize; ++i) {
                 TalentPropBase tmpobj;
-                tmpobj.ParseObjectFromStringForClient (mainstr);
+                tmpobj.ParseObjectFromStringForNet (mainstr);
                 m_TalentProps.push_back (tmpobj);
         }
 

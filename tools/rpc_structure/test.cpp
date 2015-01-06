@@ -67,14 +67,14 @@ int main ()
 
     ////////////////////////// dump object ///////////////////////////
     //
-    p.SerializeObjectToStringForClient(mainstr);
+    p.SerializeObjectToStringForNet (mainstr);
     p.dumpObject();
 
     std::cout << "---------------- mainstr.size() = " << mainstr.size() << " ----------------" << std::endl;
 #if 1
     // Parse to other_object from string
     Player p1;
-    p1.ParseObjectFromStringForClient (mainstr);
+    p1.ParseObjectFromStringForNet (mainstr);
     p1.dumpObject();
 #endif
 

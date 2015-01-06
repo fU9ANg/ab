@@ -2,6 +2,14 @@
 #ifndef _CALLBACKFUNCTIONS_H
 #define _CALLBACKFUNCTIONS_H
 
+#include "Platform.h"
+
+#include "ItemBase.h"
+#include "IntInt.h"
+#include "ResourceBase.h"
+
+using namespace std;
+
 extern void UpdateOneBagItem_CallBack (int pos, ItemBase item);
 extern void UpdateOneEquipedItem_CallBack (int pos, ItemBase item);
 extern void UpdateBagItems_CallBack (std::vector<ItemBase> items);

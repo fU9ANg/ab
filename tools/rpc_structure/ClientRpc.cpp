@@ -6,13 +6,13 @@ void ClientRpc::UpdateOneBagItem (int pos, ItemBase& item)
         std::string mainstr;
         std::string substr;
 
-        CRPCUpdateOneBagItem args;
+        RPCS::CRPCUpdateOneBagItem args;
         args.set_pos (pos);
         
         args.SerializeToString (&substr);
-        PushObjectToString (mainstr, substr);
+        AppendObjectToString (mainstr, substr);
 
-        item.SerializeObjectToStringForDB (mainstr);
+        item.SerializeObjectToStringForNet (mainstr);
 
         //CALL_CLIENT_RPC (110, mainstr);
 }
@@ -22,13 +22,13 @@ void ClientRpc::UpdateOneEquipedItem (int pos, ItemBase& item)
         std::string mainstr;
         std::string substr;
 
-        CRPCUpdateOneEquipedItem args;
+        RPCS::CRPCUpdateOneEquipedItem args;
         args.set_pos (pos);
         
         args.SerializeToString (&substr);
-        PushObjectToString (mainstr, substr);
+        AppendObjectToString (mainstr, substr);
 
-        item.SerializeObjectToStringForDB (mainstr);
+        item.SerializeObjectToStringForNet (mainstr);
 
         //CALL_CLIENT_RPC (111, mainstr);
 }
@@ -39,7 +39,7 @@ void ClientRpc::UpdateBagItems (std::vector<ItemBase> items)
         std::string substr;
 
         for (std::vector<ItemBase>::iterator it = items.begin(); it != items.end(); ++it) {
-            (*it).SerializeObjectToStringForDB (mainstr);
+            (*it).SerializeObjectToStringForNet (mainstr);
         }
 
         //CALL_CLIENT_RPC (112, mainstr);

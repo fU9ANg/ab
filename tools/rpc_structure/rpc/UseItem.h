@@ -9,6 +9,7 @@ namespace rpcfunctions
 {
         class UseItem : public RpcFunctionBase
         { 
+        public:
                 void invoke (int pos);
 
                 void return_result (int rs, std::vector<ResourceBase> resources)
@@ -16,13 +17,13 @@ namespace rpcfunctions
                         std::string mainstr;
                         std::string substr;
 
-                        SRPCUseItemRlt tmpobj;
+                        RPCS::SRPCUseItemRlt tmpobj;
                         tmpobj.set_rs (rs);
                         tmpobj.SerializeToString (&substr);
-                        SerializeObjectToString (mainstr, substr);
+                        AppendObjectToString (mainstr, substr);
 
                         for (std::vector<ResourceBase>::iterator it = resources.begin(); it != resources.end(); ++it) {
-                                (*it).SerializeObjectToString (mainstr);
+                                (*it).SerializeObjectToStringForNet (mainstr);
                         }
 
                         m_result = mainstr;

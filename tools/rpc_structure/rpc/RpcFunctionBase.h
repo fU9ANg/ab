@@ -8,6 +8,16 @@
 
 #include "common.h"
 
+#include "IntIntBase.h"
+#include "PlayerBase.h"
+#include "PosBase.h"
+#include "ResourceBase.h"
+#include "TalentNodeBase.h"
+#include "TalentPropBase.h"
+
+#include "ChenyuanTypes.pb.h"
+#include "Rpc.pb.h"
+
 using namespace std;
 
 namespace rpcfunctions

@@ -8,6 +8,7 @@ namespace rpcfunctions
 {
         class EquipEquipment : public RpcFunctionBase
         { 
+        public:
                 void invoke (int itemPos);
 
                 void return_result (int rs)
@@ -15,9 +16,9 @@ namespace rpcfunctions
                         std::string mainstr;
                         std::string substr;
 
-                        // SRPCEquipEquipmentRlt tmpobj;
-                        // tmpobj.set_rs (rs);
-                        // tmpobj.SerializeToString (&substr);
+                        RPCS::SRPCEquipEquipmentRlt tmpobj;
+                        tmpobj.set_rs (rs);
+                        tmpobj.SerializeToString (&substr);
 
                         AppendObjectToString (mainstr, substr);
 
@@ -25,6 +26,6 @@ namespace rpcfunctions
                 }
         };
 
-};
+}
 
 #endif  //_RPCFUNCTIONS_EQUIPEQUIPMENT_H

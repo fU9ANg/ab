@@ -14,6 +14,7 @@ message SRPCEquipEquipmentArg
 }
 message SRPCEquipEquipmentRlt
 {
+    required int32 rs     = 1;
 }
 
 // Server-RPC: UnEquipEquipment
@@ -23,6 +24,7 @@ message SRPCUnEquipEquipmentArg
 }
 message SRPCUnEquipEquipmentRlt
 {
+    required int32 rs     = 1;
 }
 
 // Server-RPC: SellItem
@@ -32,15 +34,20 @@ message SRPCSellItemArg
 }
 message SRPCSellItemRlt
 {
+    required int32 money  = 1;
+    required int32 badge  = 2;
+    //required IntInt item  = 3;
 }
 
 // Server-RPC: UseItem
-message SPRCUseItemArg
+message SRPCUseItemArg
 {
     required int32 pos    = 1;
 }
-message SPRCUseItemRlt
+message SRPCUseItemRlt
 {
+    required int32 rs     = 1;
+    //repeated ResourceBase resources = 2;
 }
 
 // Server-RPC: ComposeItem
@@ -51,8 +58,7 @@ message SRPCComposeItemArg
 }
 message SRPCComposeItemRlt
 {
-    required int32 type   = 1;
-    repeated int32 indexs = 2;
+    required int32 rs     = 1;
 }
 
 // Server-RPC: SortItem
@@ -73,14 +79,20 @@ message SRPCSortItemsRlt
 // Client-RPC: UpdateOneBagItem
 message CRPCUpdateOneBagItem
 {
+    required int32  pos     = 1;
+    //required ItemSerializeClient item = 2;
 }
 
 // Client-RPC: UpdateOneEquipedItem
 message CRPCUpdateOneEquipedItem
 {
+    required int32  pos     = 1;
+    //required ItemSerializeClient item = 2;
 }
 
 // Client-RPC: UpdateBagItems
 message CRPCUpdateBagItems
 {
+    required int32  pos     = 1;
+    //repeated ItemSerializeClient item = 2;
 }

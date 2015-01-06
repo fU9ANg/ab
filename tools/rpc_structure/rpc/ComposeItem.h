@@ -8,6 +8,7 @@ namespace rpcfunctions
 {
         class ComposeItem : public RpcFunctionBase
         { 
+        public:
                 void invoke (int type, std::vector<int> indexs);
 
                 void return_result (int rs)
@@ -15,9 +16,9 @@ namespace rpcfunctions
                         std::string mainstr;
                         std::string substr;
 
-                        // SRPCComposeItemRlt tmpobj;
-                        // tmpobj.set_rs (rs);
-                        // tmpobj.SerializeToString (&substr);
+                        RPCS::SRPCComposeItemRlt tmpobj;
+                        tmpobj.set_rs (rs);
+                        tmpobj.SerializeToString (&substr);
 
                         AppendObjectToString (mainstr, substr);
 

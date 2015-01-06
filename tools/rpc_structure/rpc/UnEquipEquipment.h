@@ -8,6 +8,7 @@ namespace rpcfunctions
 {
         class UnEquipEquipment : public RpcFunctionBase
         { 
+        public:
                 void invoke (int pos);
 
                 void return_result (int rs)
@@ -15,9 +16,9 @@ namespace rpcfunctions
                         std::string mainstr;
                         std::string substr;
 
-                        // SRPCUnEquipEquipmentRlt tmpobj;
-                        // tmpobj.set_rs (rs);
-                        // tmpobj.SerializeToString (&substr);
+                        RPCS::SRPCUnEquipEquipmentRlt tmpobj;
+                        tmpobj.set_rs (rs);
+                        tmpobj.SerializeToString (&substr);
 
                         AppendObjectToString (mainstr, substr);
 

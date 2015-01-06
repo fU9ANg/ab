@@ -15,7 +15,7 @@ CPP     = ccache g++
 CC      = ccache cc
 
 # options for compiler
-CFLAGS  = -Wall -Werror
+CFLAGS  = -Wall -Werror -Wno-unused-function
 
 # is debug? (for development)
 CDEBUG  = -g -DDEBUG
@@ -27,20 +27,44 @@ OBJS    = 	test.o \
 		gen/TalentNodeBase.o \
 		gen/TalentPropBase.o \
 		gen/PlayerBase.o \
+		gen/ResourceBase.o \
+		gen/IntIntBase.o \
+		gen/ItemBase.o \
 		\
 		obj/Pos.o \
 		obj/TalentNode.o \
 		obj/TalentProp.o \
 		obj/Player.o \
+		obj/Resource.o \
+		obj/IntInt.o \
+		obj/Item.o \
 		\
+		rpc/RpcFunctionBase.o \
+		rpc/EquipEquipment.o \
+		rpc/UnEquipEquipment.o \
+		rpc/SortItems.o \
+		rpc/ComposeItem.o \
+		rpc/UseItem.o \
+		rpc/SellItem.o \
+		\
+		ServerRpc.o \
 		common.o \
-		message/proto/ChenyuanTypes.pb.o
+		message/proto/ChenyuanTypes.pb.o \
+		message/proto/Rpc.pb.o \
+		\
+		\
+		\
+		ClientRpc.o \
+		client/ServerRpcFunctions.o \
+		client/CallBackFunctions.o \
+		client/LocalRpcHandlers.o
+
 
 # binary
 BIN	    = test
 
 # where are include files kept
-INC	    = -I. -I./gen -I./obj -I./message -I./message/proto
+INC	    = -I. -I./gen -I./obj -I./rpc -I./message -I./message/proto -I./client
 
 # for Linker
 LINK        = -lprotobuf -lpthread

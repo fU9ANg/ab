@@ -1,47 +1,45 @@
 
 
-#include "PosBase.h"
+#include "ItemBase.h"
 
-PosBase::PosBase ()
+ItemBase::ItemBase ()
 {
         selfSerializeDB.Clear ();
         selfSerializeNet.Clear ();
 
-        m_X = 0;
-        m_Y = 0;
+        m_Id = 0;
+        m_Price = 0.f;
 }
 
-int PosBase::getX (void)
+int ItemBase::getId (void)
 {
-        return (m_X);
+        return (m_Id);
 }
-int PosBase::getY (void)
+float ItemBase::getPrice (void)
 {
-        return (m_Y);
+        return (m_Price);
+}
+void ItemBase::setId (int id)
+{
+        m_Id = id;
+}
+void ItemBase::setPrice (float price)
+{
+        m_Price = price;
 }
 
-void PosBase::setX (int x)
+void ItemBase::dumpObject (void)
 {
-        m_X = x;
+        std::cout << "------ Item ------" << std::endl;
+        std::cout << "m_Id: " << m_Id << std::endl;
+        std::cout << "m_Price: " << m_Price << std::endl;
 }
-void PosBase::setY (int y)
-{
-        m_Y = y;
-}
-
-void PosBase::dumpObject (void)
-{
-        std::cout << "------ Pos ------" << std::endl;
-        std::cout << "m_X: " << m_X << std::endl;
-        std::cout << "m_Y: " << m_Y << std::endl;
-}
-std::string PosBase::SerializeObjectToStringForDB (std::string& mainstr)
+std::string ItemBase::SerializeObjectToStringForDB (std::string& mainstr)
 {
         std::string substr;
 
         // 1. for base type
-        selfSerializeDB.set_x(getX());
-        selfSerializeDB.set_y(getY());
+        selfSerializeDB.set_id(getId());
 
         selfSerializeDB.SerializeToString (&substr);
         AppendObjectToString (mainstr, substr);
@@ -49,7 +47,7 @@ std::string PosBase::SerializeObjectToStringForDB (std::string& mainstr)
         return (mainstr);
 }
 
-bool PosBase::ParseObjectFromStringForDB (std::string& mainstr)
+bool ItemBase::ParseObjectFromStringForDB (std::string& mainstr)
 {
         std::string substr;
         unsigned short nSize;
@@ -61,19 +59,18 @@ bool PosBase::ParseObjectFromStringForDB (std::string& mainstr)
         selfSerializeDB.ParseFromString(substr);
 
         // 1. for base type
-        setX(selfSerializeDB.x());
-        setY(selfSerializeDB.y());
+        setId(selfSerializeDB.id());
 
         return (true);
 }
 
-std::string PosBase::SerializeObjectToStringForNet (std::string& mainstr)
+std::string ItemBase::SerializeObjectToStringForNet (std::string& mainstr)
 {
         std::string substr;
 
         // 1. for base type
-        selfSerializeNet.set_x(getX());
-        selfSerializeNet.set_y(getY());
+        selfSerializeNet.set_id(getId());
+        selfSerializeNet.set_price(getPrice());
 
         selfSerializeNet.SerializeToString (&substr);
         AppendObjectToString (mainstr, substr);
@@ -81,7 +78,7 @@ std::string PosBase::SerializeObjectToStringForNet (std::string& mainstr)
         return (mainstr);
 }
 
-bool PosBase::ParseObjectFromStringForNet (std::string& mainstr)
+bool ItemBase::ParseObjectFromStringForNet (std::string& mainstr)
 {
         std::string substr;
         unsigned short nSize;
@@ -93,8 +90,8 @@ bool PosBase::ParseObjectFromStringForNet (std::string& mainstr)
         selfSerializeNet.ParseFromString(substr);
 
         // 1. for base type
-        setX(selfSerializeNet.x());
-        setY(selfSerializeNet.y());
+        setId(selfSerializeNet.id());
+        setPrice(selfSerializeNet.price());
 
         return (true);
 }

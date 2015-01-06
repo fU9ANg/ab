@@ -8,7 +8,7 @@ message PosSerializeDB
     required int32                      x           = 1;
     required int32                      y           = 2;
 }
-message PosSerializeClient
+message PosSerializeNet
 {
     required int32                      x           = 1;
     required int32                      y           = 2;
@@ -22,7 +22,7 @@ message TalentPropSerializeDB
     required int32                      propval     = 2;    //属性值
     required int32                      locked      = 3;    //是否锁定
 }
-message TalentPropSerializeClient
+message TalentPropSerializeNet
 {
     required int32                      propid      = 1;    //属性ID
     required int32                      propval     = 2;    //属性值
@@ -36,9 +36,9 @@ message TalentNodeSerializeDB
     repeated TalentPropSerializeDB      props       = 1;    //天赋属性列表
 }
 
-message TalentNodeSerializeClient
+message TalentNodeSerializeNet
 {
-    repeated TalentPropSerializeClient  props       = 1;    //天赋属性列表
+    repeated TalentPropSerializeNet  props       = 1;    //天赋属性列表
 }
 
 
@@ -53,13 +53,47 @@ message PlayerSerializeDB
     repeated int32                      spelllist   = 4;    //技能列表
     repeated TalentNodeSerializeDB      talentnodes = 5;    //批量洗天赋属性列表
 }
-message PlayerSerializeClient
+message PlayerSerializeNet
 {
     required string                     name        = 1;    //名称
     required int32                      roleid      = 2;    //角色Id
 
-    optional PosSerializeClient         pos         = 3;    //Pos位置
+    optional PosSerializeNet         pos         = 3;    //Pos位置
 
     repeated int32                      spelllist   = 4;    //技能列表
-    repeated TalentNodeSerializeClient  talentnodes = 5;    //批量洗天赋属性列表
+    repeated TalentNodeSerializeNet  talentnodes = 5;    //批量洗天赋属性列表
+}
+
+// IntInt Serialize
+message IntIntSerializeDB
+{
+    required int32                      int1        = 1;
+    required int32                      int2        = 2;
+}
+message IntIntSerializeNet
+{
+    required int32                      int1        = 1;
+    required int32                      int2        = 2;
+}
+
+// Resource Serialize
+message ResourceSerializeDB
+{
+    required int32                      id          = 1;
+}
+message ResourceSerializeNet
+{
+    required int32                      id          = 1;
+    required string                     name        = 2;
+}
+
+// Item Serialize
+message ItemSerializeDB
+{
+    required int32                      id          = 1;
+}
+message ItemSerializeNet
+{
+    required int32                      id          = 1;
+    required float                      price       = 2;
 }

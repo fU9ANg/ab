@@ -25,7 +25,7 @@ public:
 
 private:
     ChenyuanTypes::TalentPropSerializeDB selfSerializeDB;
-    ChenyuanTypes::TalentPropSerializeClient selfSerializeClient;
+    ChenyuanTypes::TalentPropSerializeNet selfSerializeNet;
     int     m_PropId;
     int     m_PropVal;
     int     m_Locked;
@@ -35,8 +35,8 @@ public:
 
     std::string SerializeObjectToStringForDB (std::string& mainstr);
     bool ParseObjectFromStringForDB (std::string& mainstr);
-    std::string SerializeObjectToStringForClient (std::string& mainstr);
-    bool ParseObjectFromStringForClient (std::string& mainstr);
+    std::string SerializeObjectToStringForNet (std::string& mainstr);
+    bool ParseObjectFromStringForNet (std::string& mainstr);
 };
 
 #endif //_GEN_TALENTPROP_H

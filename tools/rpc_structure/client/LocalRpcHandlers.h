@@ -1,4 +1,9 @@
 
+#ifndef _LOCALRPCHANDLERS_H
+#define _LOCALRPCHANDLERS_H
+
+#include "Platform.h"
+
 namespace LocalRpcHandlers
 {
         static void UpdateOneBagItem_HANDLER (std::string mainstr);
@@ -12,3 +17,5 @@ namespace LocalRpcHandlers
         static void ComposeItem_HANDLER (std::string mainstr);
         static void SortItems (std::string mainstr);
 };
+
+#endif //_LOCALRPCHANDLERS_H

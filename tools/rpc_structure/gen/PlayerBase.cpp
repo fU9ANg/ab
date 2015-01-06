@@ -4,7 +4,7 @@
 PlayerBase::PlayerBase ()
 {
     selfSerializeDB.Clear ();
-    selfSerializeClient.Clear ();
+    selfSerializeNet.Clear ();
 
     m_Name.clear ();
     m_RoleId = 0;
@@ -173,41 +173,41 @@ bool PlayerBase::ParseObjectFromStringForDB (std::string& mainstr)
         return (true);
 }
 
-bool PlayerBase::SerializeObjectToStringForClient (std::string& mainstr)
+bool PlayerBase::SerializeObjectToStringForNet (std::string& mainstr)
 {
         std::string substr;
         size_t nlistsize;
         bool rlt = false;
 
         // 1. for base type
-        selfSerializeClient.set_name (getName());
-        selfSerializeClient.set_roleid (getRoleId());
+        selfSerializeNet.set_name (getName());
+        selfSerializeNet.set_roleid (getRoleId());
 
         // 2. for base list type
         std::vector<int>::iterator it;
         for (it = m_SpellList.begin(); it != m_SpellList.end(); ++it) {
-                selfSerializeClient.add_spelllist ((*it));
+                selfSerializeNet.add_spelllist ((*it));
         }
 
         ///// first serialize base type
-        rlt = selfSerializeClient.SerializeToString (&substr);
+        rlt = selfSerializeNet.SerializeToString (&substr);
 
         rlt = AppendObjectToString (mainstr, substr);
 
         // 3. for user define type
-        m_Pos.SerializeObjectToStringForClient (mainstr);
+        m_Pos.SerializeObjectToStringForNet (mainstr);
 
         // 4. for user define list type
         nlistsize = m_TalentNodes.size ();
         AppendSizeToString (mainstr, nlistsize);
         for (size_t i=0; i<nlistsize; i++) {
-                m_TalentNodes[i].SerializeObjectToStringForClient (mainstr);
+                m_TalentNodes[i].SerializeObjectToStringForNet (mainstr);
         }
 
         return (rlt);
 }
 
-bool PlayerBase::ParseObjectFromStringForClient (std::string& mainstr)
+bool PlayerBase::ParseObjectFromStringForNet (std::string& mainstr)
 {
         std::string substr;
         unsigned short nsize;
@@ -216,26 +216,26 @@ bool PlayerBase::ParseObjectFromStringForClient (std::string& mainstr)
                 return (false);
 
         ExtractObjectFromString (mainstr, substr, nsize);
-        selfSerializeClient.ParseFromString (substr);
+        selfSerializeNet.ParseFromString (substr);
 
         // 1. for base type
-        setName (selfSerializeClient.name());
-        setRoleId (selfSerializeClient.roleid());
+        setName (selfSerializeNet.name());
+        setRoleId (selfSerializeNet.roleid());
 
         // 2. for base list type
         m_SpellList.clear();
-        for (int i=0; i<selfSerializeClient.spelllist().size(); i++) {
-                m_SpellList.push_back (selfSerializeClient.spelllist(i));
+        for (int i=0; i<selfSerializeNet.spelllist().size(); i++) {
+                m_SpellList.push_back (selfSerializeNet.spelllist(i));
         }
         // 3. for user define type
-        m_Pos.ParseObjectFromStringForClient (mainstr);
+        m_Pos.ParseObjectFromStringForNet (mainstr);
 
         // 4. for user define list type
         m_TalentNodes.clear();
         ExtractSizeFromString (mainstr, nsize);
         for (size_t i=0; i<nsize; ++i) {
                 TalentNodeBase tmpobj;
-                tmpobj.ParseObjectFromStringForClient (mainstr);
+                tmpobj.ParseObjectFromStringForNet (mainstr);
                 m_TalentNodes.push_back (tmpobj);
         }
         return (true);

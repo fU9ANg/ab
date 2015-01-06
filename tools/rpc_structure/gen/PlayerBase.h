@@ -41,7 +41,7 @@ public:
 
 private:
     ChenyuanTypes::PlayerSerializeDB selfSerializeDB;
-    ChenyuanTypes::PlayerSerializeClient selfSerializeClient;
+    ChenyuanTypes::PlayerSerializeNet selfSerializeNet;
 
     std::string m_Name; //名称
     int m_RoleId; //场景Id
@@ -53,8 +53,8 @@ public:
     void dumpObject (void);
     bool SerializeObjectToStringForDB (std::string& mainstr);
     bool ParseObjectFromStringForDB (std::string& mainstr);
-    bool SerializeObjectToStringForClient (std::string& mainstr);
-    bool ParseObjectFromStringForClient (std::string& mainstr);
+    bool SerializeObjectToStringForNet (std::string& mainstr);
+    bool ParseObjectFromStringForNet (std::string& mainstr);
 };
 
 #endif // _GEN_PLAYERBASE_H

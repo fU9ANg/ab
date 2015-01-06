@@ -1,6 +1,6 @@
 
-#ifndef _GEN_POS_H
-#define _GEN_POS_H
+#ifndef _GEN_INTINT_H
+#define _GEN_INTINT_H
 
 #include <iostream>
 #include <string>
@@ -10,22 +10,22 @@
 
 using namespace std;
 
-class PosBase
+class IntIntBase
 {
 public:
-    PosBase ();
+    IntIntBase ();
 
-    int getX (void);
-    int getY (void);
-    void setX (int x);
-    void setY (int y);
+    int getInt1 (void);
+    int getInt2 (void);
+    void setInt1 (int i1);
+    void setInt2 (int i2);
 
 private:
-    ChenyuanTypes::PosSerializeDB       selfSerializeDB;
-    ChenyuanTypes::PosSerializeNet   selfSerializeNet;
+    ChenyuanTypes::IntIntSerializeDB       selfSerializeDB;
+    ChenyuanTypes::IntIntSerializeNet   selfSerializeNet;
 
-    int     m_X;
-    int     m_Y;
+    int     m_Int1;
+    int     m_Int2;
 
 public:
     void dumpObject (void);
@@ -36,4 +36,4 @@ public:
     bool ParseObjectFromStringForNet (std::string& mainstr);
 };
 
-#endif  // _GEN_POS_H
+#endif  // _GEN_INTINT_H

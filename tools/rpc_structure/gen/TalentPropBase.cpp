@@ -4,7 +4,7 @@
 TalentPropBase::TalentPropBase ()
 {
         selfSerializeDB.Clear ();
-        selfSerializeClient.Clear ();
+        selfSerializeNet.Clear ();
         m_PropId = 0;
         m_PropVal= 0;
         m_Locked = 0;
@@ -79,23 +79,23 @@ bool TalentPropBase::ParseObjectFromStringForDB (std::string& mainstr)
         return (true);
 }
 
-std::string TalentPropBase::SerializeObjectToStringForClient (std::string& mainstr)
+std::string TalentPropBase::SerializeObjectToStringForNet (std::string& mainstr)
 {
         //std::string mainstr;
         std::string substr;
 
         // 1. for base type
-        selfSerializeClient.set_propid  (getPropId());
-        selfSerializeClient.set_propval (getPropVal());
-        selfSerializeClient.set_locked  (getLocked());
+        selfSerializeNet.set_propid  (getPropId());
+        selfSerializeNet.set_propval (getPropVal());
+        selfSerializeNet.set_locked  (getLocked());
 
-        selfSerializeClient.SerializeToString (&substr);
+        selfSerializeNet.SerializeToString (&substr);
         AppendObjectToString (mainstr, substr);
 
         return (mainstr);
 }
 
-bool TalentPropBase::ParseObjectFromStringForClient (std::string& mainstr)
+bool TalentPropBase::ParseObjectFromStringForNet (std::string& mainstr)
 {
         std::string substr;
         unsigned short nSize;
@@ -104,12 +104,12 @@ bool TalentPropBase::ParseObjectFromStringForClient (std::string& mainstr)
                 return (false);
 
         ExtractObjectFromString (mainstr, substr, nSize);
-        selfSerializeClient.ParseFromString (substr);
+        selfSerializeNet.ParseFromString (substr);
 
         // 1. for base type
-        setPropId  (selfSerializeClient.propid());
-        setPropVal (selfSerializeClient.propval());
-        setLocked  (selfSerializeClient.locked());
+        setPropId  (selfSerializeNet.propid());
+        setPropVal (selfSerializeNet.propval());
+        setLocked  (selfSerializeNet.locked());
 
         return (true);
 }

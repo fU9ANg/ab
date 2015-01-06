@@ -1,75 +1,78 @@
 
 #include "ServerRpc.h"
 
+using namespace rpcfunctions;
+
 RpcFunctionBase* ServerRpc::EquipEquipment_HANDLER (std::string mainstr)
 {
-        SRPCEquipEquipmentArg tmpobj;
+        RPCS::SRPCEquipEquipmentArg tmpobj;
         std::string substr;
-        int nsize;
+        unsigned short nsize;
 
         ExtractObjectFromString (mainstr, substr, nsize);
         tmpobj.ParseFromString (substr);
 
         rpcfunctions::EquipEquipment *fnobj = new rpcfunctions::EquipEquipment();
-        fnobj.invoke (tmpobj.itempos());
+        //EquipEquipment *fnobj = new EquipEquipment();
+        fnobj->invoke (tmpobj.itempos());
 
         return (fnobj);
 }
 
 RpcFunctionBase* ServerRpc::UnEquipEquipment_HANDLER (std::string mainstr)
 {
-        SRPCUnEquipEquipmentArg tmpobj;
+        RPCS::SRPCUnEquipEquipmentArg tmpobj;
         std::string substr;
-        int nsize;
+        unsigned short nsize;
 
-        PopObjectFromString (mainstr, substr, nsize);
+        ExtractObjectFromString (mainstr, substr, nsize);
         tmpobj.ParseFromString (substr);
 
         rpcfunctions::UnEquipEquipment *fnobj = new rpcfunctions::UnEquipEquipment();
-        fnobj.invoke (tmpobj.pos());
+        fnobj->invoke (tmpobj.pos());
 
         return (fnobj);
 }
 
 RpcFunctionBase* ServerRpc::SellItem_HANDLER (std::string mainstr)
 {
-        SRPCSellItemArg tmpobj;
+        RPCS::SRPCSellItemArg tmpobj;
         std::string substr;
-        int nsize;
+        unsigned short nsize;
 
-        PopObjectFromString (mainstr, substr, nsize);
+        ExtractObjectFromString (mainstr, substr, nsize);
         tmpobj.ParseFromString (substr);
 
         int itemPos = tmpobj.itempos();
         rpcfunctions::SellItem *fnobj = new rpcfunctions::SellItem();
-        fnobj.invoke (itemPos);
+        fnobj->invoke (itemPos);
 
         return (fnobj);
 }
 
 RpcFunctionBase* ServerRpc::UseItem_HANDLER (std::string mainstr)
 {
-        SRPCUseItemArg tmpobj;
+        RPCS::SRPCUseItemArg tmpobj;
         std::string substr;
-        int nsize;
+        unsigned short nsize;
 
-        PopObjectFromString (mainstr, substr, nsize);
+        ExtractObjectFromString (mainstr, substr, nsize);
         tmpobj.ParseFromString (substr);
 
         int pos = tmpobj.pos();
         rpcfunctions::UseItem *fnobj = new rpcfunctions::UseItem();
-        fnobj.invoke (pos);
+        fnobj->invoke (pos);
 
         return (fnobj);
 }
 
 RpcFunctionBase* ServerRpc::ComposeItem_HANDLER (std::string mainstr)
 {
-        SRPCComposeItemArg tmpobj;
+        RPCS::SRPCComposeItemArg tmpobj;
         std::string substr;
-        int nsize;
+        unsigned short nsize;
 
-        PopObjectFromString (mainstr, substr, nsize);
+        ExtractObjectFromString (mainstr, substr, nsize);
         tmpobj.ParseFromString (substr);
 
         int type;
@@ -80,18 +83,18 @@ RpcFunctionBase* ServerRpc::ComposeItem_HANDLER (std::string mainstr)
         }
 
         rpcfunctions::ComposeItem *fnobj = new rpcfunctions::ComposeItem();
-        fnobj.invoke (type, indexs);
+        fnobj->invoke (type, indexs);
 
         return (fnobj);
 }
 
 RpcFunctionBase* ServerRpc::SortItems_HANDLER (void)
 {
-        std::string substr;
-        int nsize;
+        //std::string substr;
+        //unsigned short nsize;
 
         rpcfunctions::SortItems *fnobj = new rpcfunctions::SortItems();
-        fnobj.invoke ();
+        fnobj->invoke ();
 
         return (fnobj);
 }

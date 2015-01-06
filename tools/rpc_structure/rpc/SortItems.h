@@ -9,6 +9,7 @@ namespace rpcfunctions
 {
         class SortItems : public RpcFunctionBase
         { 
+        public:
                 void invoke (void);
 
                 void return_result (void)

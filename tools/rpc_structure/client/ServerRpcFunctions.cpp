@@ -6,65 +6,73 @@ void CALL_SERVERRPC (std::string mainstr)
         // TODO: post mainstr to server.
 }
 
-void ServerRpcFunctions::EquipEquipment (int itemPos);
+void ServerRpcFunctions::EquipEquipment (int itemPos)
 {
-        SREquipEquipmentArg tmpobj;
+        RPCS::SRPCEquipEquipmentArg tmpobj;
         std::string mainstr;
         std::string substr;
 
         tmpobj.set_itempos (itemPos);
 
         tmpobj.SerializeToString (&substr);
-        PushObjectToString (mainstr, substr);
+        AppendObjectToString (mainstr, substr);
 
         CALL_SERVERRPC (mainstr);
+
+        return;
 }
 
 void ServerRpcFunctions::UnEquipEquipment (int pos)
 {
-        SRUnEquipEquipmentArg tmpobj;
+        RPCS::SRPCUnEquipEquipmentArg tmpobj;
         std::string mainstr;
         std::string substr;
 
         tmpobj.set_pos (pos);
 
         tmpobj.SerializeToString (&substr);
-        PushObjectToString (mainstr, substr);
+        AppendObjectToString (mainstr, substr);
 
         CALL_SERVERRPC (mainstr);
+
+        return;
 }
 
 void ServerRpcFunctions::SellItem (int itemPos)
 {
-        SRSellItemArg tmpobj;
+        RPCS::SRPCSellItemArg tmpobj;
         std::string mainstr;
         std::string substr;
 
         tmpobj.set_itempos (itemPos);
 
         tmpobj.SerializeToString (&substr);
-        PushObjectToString (mainstr, substr);
+        AppendObjectToString (mainstr, substr);
 
         CALL_SERVERRPC (mainstr);
+
+        return;
 }
 
 void ServerRpcFunctions::UseItem (int pos)
 {
-        SRUseItemArg tmpobj;
+        RPCS::SRPCUseItemArg tmpobj;
         std::string mainstr;
         std::string substr;
 
         tmpobj.set_pos (pos);
 
         tmpobj.SerializeToString (&substr);
-        PushObjectToString (mainstr, substr);
+        AppendObjectToString (mainstr, substr);
 
         CALL_SERVERRPC (mainstr);
+
+        return;
 }
 
 void ServerRpcFunctions::ComposeItem (int type, std::vector<int> indexs)
 {
-        SRComposeItemArg tmpobj;
+        RPCS::SRPCComposeItemArg tmpobj;
         std::string mainstr;
         std::string substr;
 
@@ -74,19 +82,23 @@ void ServerRpcFunctions::ComposeItem (int type, std::vector<int> indexs)
         }
 
         tmpobj.SerializeToString (&substr);
-        PushObjectToString (mainstr, substr);
+        AppendObjectToString (mainstr, substr);
 
         CALL_SERVERRPC (mainstr);
+
+        return;
 }
 
 void ServerRpcFunctions::SortItems (void)
 {
-        SRSortItemsArg tmpobj;
+        RPCS::SRPCSortItemsArg tmpobj;
         std::string mainstr;
         std::string substr;
 
         tmpobj.SerializeToString (&substr);
-        PushObjectToStringForDB (mainstr, substr);
+        AppendObjectToString (mainstr, substr);
 
         CALL_SERVERRPC (mainstr);
+
+        return;
 }

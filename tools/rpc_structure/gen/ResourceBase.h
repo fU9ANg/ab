@@ -1,6 +1,6 @@
 
-#ifndef _GEN_POS_H
-#define _GEN_POS_H
+#ifndef _GEN_RESOURCE_H
+#define _GEN_RESOURCE_H
 
 #include <iostream>
 #include <string>
@@ -10,22 +10,22 @@
 
 using namespace std;
 
-class PosBase
+class ResourceBase
 {
 public:
-    PosBase ();
+    ResourceBase ();
 
-    int getX (void);
-    int getY (void);
-    void setX (int x);
-    void setY (int y);
+    int getId (void);
+    string getName (void);
+    void setId (int i);
+    void setName (string n);
 
 private:
-    ChenyuanTypes::PosSerializeDB       selfSerializeDB;
-    ChenyuanTypes::PosSerializeNet   selfSerializeNet;
+    ChenyuanTypes::ResourceSerializeDB       selfSerializeDB;
+    ChenyuanTypes::ResourceSerializeNet   selfSerializeNet;
 
-    int     m_X;
-    int     m_Y;
+    int     m_Id;
+    string  m_Name;
 
 public:
     void dumpObject (void);
@@ -36,4 +36,4 @@ public:
     bool ParseObjectFromStringForNet (std::string& mainstr);
 };
 
-#endif  // _GEN_POS_H
+#endif  // _GEN_RESOURCE_H
