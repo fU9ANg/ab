@@ -1,0 +1,48 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Accept	ODSocket.cpp	/^bool ODSocket::Accept(ODSocket& s, char* fromip) {$/;"	f	class:ODSocket
+Bind	ODSocket.cpp	/^bool ODSocket::Bind(const struct sockaddr_in& svraddr, unsigned short port) {$/;"	f	class:ODSocket
+CONNECT_TIMEOUT	ODSocket.cpp	58;"	d	file:
+Clean	ODSocket.cpp	/^int ODSocket::Clean() {$/;"	f	class:ODSocket
+Close	ODSocket.cpp	/^int ODSocket::Close() {$/;"	f	class:ODSocket
+Connect	ODSocket.cpp	/^bool ODSocket::Connect(const char* ip, unsigned short port) {$/;"	f	class:ODSocket
+Create	ODSocket.cpp	/^bool ODSocket::Create(int af, int type, int protocol) {$/;"	f	class:ODSocket
+DnsParse	ODSocket.cpp	/^bool ODSocket::DnsParse(const char* domain, char* ip) {$/;"	f	class:ODSocket
+GLOBAL_FUNC_INVALIED	test.cpp	13;"	d	file:
+GLOBAL_FUNC_INVALIED_FD	test.cpp	11;"	d	file:
+GetError	ODSocket.cpp	/^int ODSocket::GetError() {$/;"	f	class:ODSocket
+INVALID_SOCKET	ODSocket.h	22;"	d
+Init	ODSocket.cpp	/^int ODSocket::Init() {$/;"	f	class:ODSocket
+Listen	ODSocket.cpp	/^bool ODSocket::Listen(int backlog) {$/;"	f	class:ODSocket
+MsgReceiver	MsgReceiver.cpp	/^MsgReceiver::MsgReceiver () {}$/;"	f	class:MsgReceiver
+MsgReceiver	MsgReceiver.h	/^class MsgReceiver {$/;"	c
+ODSocket	ODSocket.cpp	/^ODSocket::ODSocket(SOCKET sock) : m_sock(sock) {}$/;"	f	class:ODSocket
+ODSocket	ODSocket.h	/^class ODSocket {$/;"	c
+Recv	ODSocket.cpp	/^int ODSocket::Recv (void* buf, int len, int flags) {$/;"	f	class:ODSocket
+SOCKET	ODSocket.h	/^	typedef int				SOCKET;$/;"	t
+SOCKET_ERROR	ODSocket.h	23;"	d
+Send	ODSocket.cpp	/^int ODSocket::Send (void* buf, int len, int flags)$/;"	f	class:ODSocket
+Send	ODSocket.cpp	/^int ODSocket::Send(void* buf, int len, int flags) {$/;"	f	class:ODSocket
+_ODSOCKET_H_	ODSocket.h	3;"	d
+__MSGRECEIVER_H__	MsgReceiver.h	2;"	d
+close	MsgReceiver.cpp	/^bool MsgReceiver::close ()$/;"	f	class:MsgReceiver
+connect	MsgReceiver.cpp	/^bool MsgReceiver::connect () {$/;"	f	class:MsgReceiver
+g_socket	MsgReceiver.h	/^	static ODSocket g_socket;$/;"	m	class:MsgReceiver
+getSocketFd	ODSocket.cpp	/^SOCKET ODSocket::getSocketFd (void) {$/;"	f	class:ODSocket
+m_sock	ODSocket.h	/^	SOCKET m_sock;$/;"	m	class:ODSocket
+main	test.cpp	/^int main ()$/;"	f
+operator =	ODSocket.cpp	/^ODSocket& ODSocket::operator = (SOCKET s) {$/;"	f	class:ODSocket
+operator SOCKET	ODSocket.cpp	/^ODSocket::operator SOCKET () {$/;"	f	class:ODSocket
+recv_n	MsgReceiver.cpp	/^ssize_t MsgReceiver::recv_n(int fd,$/;"	f	class:MsgReceiver
+recv_v	MsgReceiver.cpp	/^int MsgReceiver::recv_v(int fd, void* buf, ssize_t left)$/;"	f	class:MsgReceiver
+restartNetwork	test.cpp	/^bool restartNetwork ()$/;"	f
+send_n	MsgReceiver.cpp	/^ssize_t MsgReceiver::send_n(int fd,$/;"	f	class:MsgReceiver
+send_v	MsgReceiver.cpp	/^int MsgReceiver::send_v(int fd, void* buf, ssize_t left) {$/;"	f	class:MsgReceiver
+socklen_t	ODSocket.h	/^	typedef int				socklen_t;$/;"	t
+start	MsgReceiver.cpp	/^bool MsgReceiver::start (bool isServer) {$/;"	f	class:MsgReceiver
+~MsgReceiver	MsgReceiver.cpp	/^MsgReceiver::~MsgReceiver () {}$/;"	f	class:MsgReceiver
+~ODSocket	ODSocket.cpp	/^ODSocket::~ODSocket() {}$/;"	f	class:ODSocket

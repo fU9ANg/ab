@@ -5,7 +5,7 @@
 #include "Platform.h"
 
 #include "ItemBase.h"
-#include "IntInt.h"
+#include "IntIntBase.h"
 #include "ResourceBase.h"
 
 using namespace std;
@@ -16,7 +16,7 @@ extern void UpdateBagItems_CallBack (std::vector<ItemBase> items);
 
 extern void EquipEquipment_CallBack (int rs);
 extern void UnEquipEquipment_CallBack (int rs);
-extern void SellItem_CallBack (int money, int badge, IntInt item);
+extern void SellItem_CallBack (int money, int badge, IntIntBase item);
 extern void UseItem_CallBack (int rs, std::vector<ResourceBase> resources);
 extern void ComposeItem_CallBack (int rs);
 

@@ -21,7 +21,9 @@ CFLAGS  = -Wall -Werror -Wno-unused-function
 CDEBUG  = -g -DDEBUG
 
 # objects
-OBJS    = 	test.o \
+SERVOBJS= 	Server.o \
+		network/MsgReceiver.o \
+		network/ODSocket.o \
 		\
 		gen/PosBase.o \
 		gen/TalentNodeBase.o \
@@ -59,12 +61,11 @@ OBJS    = 	test.o \
 		client/CallBackFunctions.o \
 		client/LocalRpcHandlers.o
 
-
 # binary
-BIN	    = test
+BIN	    = Server
 
 # where are include files kept
-INC	    = -I. -I./gen -I./obj -I./rpc -I./message -I./message/proto -I./client
+INC	    = -I. -I./gen -I./obj -I./rpc -I./message -I./message/proto -I./client -I./network
 
 # for Linker
 LINK        = -lprotobuf -lpthread
@@ -76,8 +77,8 @@ precompile_protobuf	:
 	$(PROTOC) $(PBFLAGS)=$(PBDST) $(PBSRC)/*
 
 # how to compiling programs
-$(BIN):$(OBJS)
-	$(CPP) $(CFLAGS) $(CDEBUG)  -o $@ $(OBJS) $(LINK)
+$(BIN):$(SERVOBJS)
+	$(CPP) $(CFLAGS) $(CDEBUG)  -o $@ $(SERVOBJS) $(LINK)
 %.o:%.cpp
 	$(CPP) $(CFLAGS) $(CDEBUG)  $(INC) -o $@ -c $<
 %.o:%.cc
@@ -88,4 +89,4 @@ $(BIN):$(OBJS)
 .PHONY: clean
 
 clean:
-	-rm -rf $(OBJS) $(BIN) *~ logs .lock message/*
+	-rm -rf $(SERVOBJS) $(BIN) *~ logs .lock message/*

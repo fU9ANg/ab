@@ -94,7 +94,7 @@ void LocalRpcHandlers::SellItem_HANDLER (std::string mainstr)
         int money = tmpobj.money();
         int badge = tmpobj.badge();
 
-        IntInt item;
+        IntIntBase item;
         item.ParseObjectFromStringForNet (mainstr);
 
         SellItem_CallBack (money, badge, item);

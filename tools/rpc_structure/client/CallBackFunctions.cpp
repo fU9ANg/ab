@@ -28,7 +28,7 @@ void UnEquipEquipment_CallBack (int rs)
         // TODO: write client source code, here
 }
 
-void SellItem_CallBack (int money, int badge, IntInt item)
+void SellItem_CallBack (int money, int badge, IntIntBase item)
 {
         // TODO: write client source code, here
 }
