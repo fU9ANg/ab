@@ -21,6 +21,7 @@ extern bool AppendSizeToString      (std::string& mainstr, unsigned short nsize)
 extern bool ExtractSizeFromString   (std::string& mainstr, unsigned short &nsize);
 extern bool AppendObjectToString    (std::string& mainstr, std::string& str);
 extern bool ExtractObjectFromString (std::string& mainstr, std::string& str, unsigned short& size);
+extern void CALL_CLIENT_RPC (int fd, int funcid, std::string mainstr);
 #endif
 
 #endif  //_COMMON_H

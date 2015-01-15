@@ -25,7 +25,7 @@ private:
     ChenyuanTypes::ItemSerializeNet   selfSerializeNet;
 
     int     m_Id;
-    int     m_Price;
+    float   m_Price;
 
 public:
     void dumpObject (void);

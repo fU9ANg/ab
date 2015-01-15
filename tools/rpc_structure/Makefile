@@ -18,7 +18,7 @@ CC      = ccache cc
 CFLAGS  = -Wall -Werror -Wno-unused-function
 
 # is debug? (for development)
-CDEBUG  = -g -DDEBUG
+CDEBUG  = -g -DDEBUG -D__TEST__
 
 # objects
 SERVOBJS= 	Server.o \

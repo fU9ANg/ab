@@ -6,16 +6,16 @@
 
 namespace LocalRpcHandlers
 {
-        static void UpdateOneBagItem_HANDLER (std::string mainstr);
-        static void UpdateOneEquipedItem_HANDLER (std::string mainstr);
-        static void UpdateBagItems_HANDLER (std::string mainstr);
+        void UpdateOneBagItem_HANDLER (std::string mainstr);
+        void UpdateOneEquipedItem_HANDLER (std::string mainstr);
+        void UpdateBagItems_HANDLER (std::string mainstr);
 
-        static void EquipEquipment_HANDLER (std::string mainstr);
-        static void UnEquipEquipment_HANDLER (std::string mainstr);
-        static void SellItem_HANDLER (std::string mainstr);
-        static void UseItem_HANDLER (std::string mainstr);
-        static void ComposeItem_HANDLER (std::string mainstr);
-        static void SortItems (std::string mainstr);
+        void EquipEquipment_HANDLER (std::string mainstr);
+        void UnEquipEquipment_HANDLER (std::string mainstr);
+        void SellItem_HANDLER (std::string mainstr);
+        void UseItem_HANDLER (std::string mainstr);
+        void ComposeItem_HANDLER (std::string mainstr);
+        void SortItems (std::string mainstr);
 };
 
 #endif //_LOCALRPCHANDLERS_H

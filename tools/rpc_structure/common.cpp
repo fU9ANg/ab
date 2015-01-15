@@ -5,7 +5,36 @@
 #include <string.h>
 #include "common.h"
 
+#include "protocol.h" /// for test...
+#include "unistd.h"   /// for test...
+
 using namespace std;
+
+extern void CALL_CLIENT_RPC (int fd, int funcid, std::string mainstr)
+{
+    #define MAX_BUFFER_SIZE 1024
+#if 0
+    char buff[MAX_BUFFER_SIZE];
+    (void) memset (buff, 0x00, MAX_BUFFER_SIZE);
+    sprintf (buff, "%s", "AA-BB-CC-DD-EE-FF");
+    printf ("FD=%d\n", clientSocket.getSocketFd());
+    int len = write (clientSocket.getSocketFd(), buff, strlen (buff));
+#else
+    char buff[MAX_BUFFER_SIZE];
+    (void) memset (buff, 0x00, MAX_BUFFER_SIZE);
+    MSG_HEAD* phead = (MSG_HEAD *) buff;
+    phead->cFuncId = funcid;
+    (void) memcpy ((char*) buff + MSG_HEAD_LEN, mainstr.c_str(), mainstr.size());
+    phead->cLen = MSG_HEAD_LEN + mainstr.size();
+
+    printf ("cLen=%d, cFuncId=%d, mainstr.size=%ld\n", phead->cLen, phead->cFuncId, mainstr.size());
+    int len = write (fd, buff, phead->cLen);
+#endif
+    if (len <= 0)
+            printf ("[ERROR]: send len <= 0\n");
+    else
+            printf ("[INFO]: send finished.\n");
+}
 
 bool AppendSizeToString (std::string& mainstr, unsigned short nsize)
 {

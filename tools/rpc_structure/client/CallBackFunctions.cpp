@@ -5,6 +5,9 @@
 void UpdateOneBagItem_CallBack (int pos, ItemBase item)
 {
         // TODO: write client source code, here
+        printf ("pos = %d\n", pos);
+        printf ("item.id = %d\n", item.getId ());
+        printf ("item.price = %f\n", item.getPrice ());
 }
 
 void UpdateOneEquipedItem_CallBack (int pos, ItemBase item)

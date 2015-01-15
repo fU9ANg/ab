@@ -1,7 +1,12 @@
 
 #include "ClientRpc.h"
+#include "common.h"
 
+#ifdef __TEST__
+void ClientRpc::UpdateOneBagItem (int fd, int pos, ItemBase& item)
+#else
 void ClientRpc::UpdateOneBagItem (int pos, ItemBase& item)
+#endif
 {
         std::string mainstr;
         std::string substr;
@@ -14,10 +19,16 @@ void ClientRpc::UpdateOneBagItem (int pos, ItemBase& item)
 
         item.SerializeObjectToStringForNet (mainstr);
 
-        //CALL_CLIENT_RPC (110, mainstr);
+#ifdef __TEST__
+        CALL_CLIENT_RPC (fd, 110, mainstr);
+#endif
 }
 
+#ifdef __TEST__
+void ClientRpc::UpdateOneEquipedItem (int fd, int pos, ItemBase& item)
+#else
 void ClientRpc::UpdateOneEquipedItem (int pos, ItemBase& item)
+#endif
 {
         std::string mainstr;
         std::string substr;
@@ -30,10 +41,16 @@ void ClientRpc::UpdateOneEquipedItem (int pos, ItemBase& item)
 
         item.SerializeObjectToStringForNet (mainstr);
 
-        //CALL_CLIENT_RPC (111, mainstr);
+#ifdef __TEST__
+        CALL_CLIENT_RPC (fd, 111, mainstr);
+#endif
 }
 
+#ifdef __TEST__
+void ClientRpc::UpdateBagItems (int fd, std::vector<ItemBase> items)
+#else
 void ClientRpc::UpdateBagItems (std::vector<ItemBase> items)
+#endif
 {
         std::string mainstr;
         std::string substr;
@@ -42,5 +59,7 @@ void ClientRpc::UpdateBagItems (std::vector<ItemBase> items)
             (*it).SerializeObjectToStringForNet (mainstr);
         }
 
-        //CALL_CLIENT_RPC (112, mainstr);
+#ifdef __TEST__
+        CALL_CLIENT_RPC (fd, 112, mainstr);
+#endif
 }

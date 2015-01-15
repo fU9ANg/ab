@@ -15,7 +15,8 @@ CPP     = ccache g++
 CC      = ccache cc
 
 # options for compiler
-CFLAGS  = -Wall -Werror -Wno-unused-function
+CFLAGS  = 
+#-Wall -Werror -Wno-unused-function
 
 # is debug? (for development)
 CDEBUG  = -g -DDEBUG
@@ -24,13 +25,26 @@ CDEBUG  = -g -DDEBUG
 
 CLIEOBJS=Client.o \
 		network/MsgReceiver.o \
-		network/ODSocket.o
+		network/ODSocket.o \
+		../client/CallBackFunctions.o \
+		../client/LocalRpcHandlers.o \
+		../client/ServerRpcFunctions.o \
+		../message/proto/ChenyuanTypes.pb.o \
+		../message/proto/Rpc.pb.o \
+		../common.o \
+		../gen/IntIntBase.o \
+		../gen/ItemBase.o \
+		../gen/PlayerBase.o \
+		../gen/PosBase.o \
+		../gen/ResourceBase.o \
+		../gen/TalentNodeBase.o \
+		../gen/TalentPropBase.o
 
 # binary
 BIN	    = Client
 
 # where are include files kept
-INC	    = -I. -I./network
+INC	    = -I. -I.. -I./network -I../client -I../message/proto -I../gen -I../message
 
 # for Linker
 LINK        = -lprotobuf -lpthread
