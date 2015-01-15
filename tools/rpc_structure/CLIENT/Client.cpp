@@ -49,6 +49,22 @@ int main ()
         std::string tmpstr;
         tmpstr.assign ((char*)buff + MSG_HEAD_LEN, phead->cLen - MSG_HEAD_LEN);
         UpdateOneBagItem_HANDLER (tmpstr);
+        // switch (phead->cFuncId) {
+        // case 110:
+        //     UpdateOneBagItem_HANDLER (tmpstr);
+        //     break;
+        // case 111:
+        //     UpdateOneEquipedItem_HANDLER (tmpstr);
+        //     break;
+        // default:
+        //     break;
+        // }
+        (void) memset (buff, 0x00, sizeof (MAX_BUFFER_SIZE));
+        len = read (GLOBAL_FUNC_INVALIED_FD, buff, MAX_BUFFER_SIZE);
+        buff[len] = 0x00;
+        tmpstr.clear();
+        tmpstr.assign (buff, len);
+        EquipEquipment_HANDLER (tmpstr);
 #endif
         ////////
         GLOBAL_FUNC_INVALIED.Close ();

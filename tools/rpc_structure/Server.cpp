@@ -8,6 +8,9 @@
 
 #include "ClientRpc.h" // for test..
 #include "Item.h"      // for test..
+#include "ServerRpc.h" // for test..
+#include "protocol.h"  // for test..
+#include "RpcFunctionBase.h" // for test..
 
 using namespace std;
 
@@ -60,6 +63,24 @@ int main ()
             item.setId (900);
             item.setPrice (14000);
             cRpc.UpdateOneBagItem (clientSocket.getSocketFd(), 34, item);//int pos, ItemBase& item)
+#endif
+
+            char buff[MAX_BUFFER_SIZE];
+            (void) memset (buff, 0x00, sizeof (MAX_BUFFER_SIZE));
+            int len = read (clientSocket.getSocketFd(), buff, MAX_BUFFER_SIZE);
+            buff[len] = 0x00;
+#ifndef __TEST__
+            printf ("recv data is: '%s'\n", buff);
+#else
+            MSG_HEAD* phead = (MSG_HEAD*) buff;
+            printf ("datalen = %d, cLen = %d, cFuncId = %d\n", len, phead->cLen, phead->cFuncId);
+            std::string tmpstr;
+            tmpstr.assign ((char*)buff + MSG_HEAD_LEN, phead->cLen - MSG_HEAD_LEN);
+            RpcFunctionBase* pbase = ServerRpc::EquipEquipment_HANDLER (tmpstr);
+            if (pbase) {
+                std::string rlt = pbase->m_result;
+                write (clientSocket.getSocketFd(), rlt.c_str(), rlt.size());
+            }
 #endif
 
 

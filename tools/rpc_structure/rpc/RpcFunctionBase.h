@@ -26,8 +26,8 @@ class RpcFunctionBase
 {
         private:
         protected:
-                std::string m_result;
         public:
+                std::string m_result;
 };
 }
 

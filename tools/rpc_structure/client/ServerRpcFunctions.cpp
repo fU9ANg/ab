@@ -1,9 +1,29 @@
 
 #include "ServerRpcFunctions.h"
 
+#include "protocol.h" // for test..
+#include "unistd.h"   // for test..
+#include "MsgReceiver.h" // for test..
+#define GLOBAL_FUNC_INVALIED_FD \
+        (MsgReceiver::g_socket.getSocketFd())
+#define GLOBAL_FUNC_INVALIED \
+        (MsgReceiver::g_socket)
+
 void CALL_SERVERRPC (std::string mainstr)
 {
+#define MAX_BUFFER_SIZE 1024
         // TODO: post mainstr to server.
+        int fd = GLOBAL_FUNC_INVALIED_FD;
+        char buff[MAX_BUFFER_SIZE];
+        (void) memset (buff, 0x00, MAX_BUFFER_SIZE);
+        MSG_HEAD* phead = (MSG_HEAD*) buff;
+        phead->cFuncId = 888;
+        phead->cLen = MSG_HEAD_LEN + mainstr.size();
+        (void) memcpy ((char*) buff + MSG_HEAD_LEN, mainstr.c_str(), mainstr.size());
+
+        printf ("cLen=%d, cFuncId=%d, mainstr.size=%ld\n", phead->cLen, phead->cFuncId, mainstr.size());
+        write (fd, buff, phead->cLen);
+        
 }
 
 void ServerRpcFunctions::EquipEquipment (int itemPos)

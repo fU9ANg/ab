@@ -1,5 +1,8 @@
 
 #include "CallBackFunctions.h"
+#include "ServerRpcFunctions.h"
+
+using namespace ServerRpcFunctions;
 
 ///////////////////////////////////////////////////////////////////
 void UpdateOneBagItem_CallBack (int pos, ItemBase item)
@@ -8,6 +11,8 @@ void UpdateOneBagItem_CallBack (int pos, ItemBase item)
         printf ("pos = %d\n", pos);
         printf ("item.id = %d\n", item.getId ());
         printf ("item.price = %f\n", item.getPrice ());
+
+        EquipEquipment (999);
 }
 
 void UpdateOneEquipedItem_CallBack (int pos, ItemBase item)
@@ -23,6 +28,7 @@ void UpdateBagItems_CallBack (std::vector<ItemBase> items)
 ///////////////////////////////////////////////////////////////////
 void EquipEquipment_CallBack (int rs)
 {
+        printf ("EquipEquipment_CallBack rs=%d\n", rs);
         // TODO: write client source code, here
 }
 
