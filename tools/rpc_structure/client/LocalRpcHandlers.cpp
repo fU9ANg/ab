@@ -42,14 +42,13 @@ void LocalRpcHandlers::UpdateBagItems_HANDLER (std::string mainstr)
         unsigned short nsize;
 
         std::vector<ItemBase> items;
-        nsize = ExtractSizeFromString (mainstr, nsize);
+        ExtractSizeFromString (mainstr, nsize);
 
         for (int i=0; i<nsize; ++i) {
                 ItemBase item;
                 item.ParseObjectFromStringForNet (mainstr);
                 items.push_back (item);
         }
-
         UpdateBagItems_CallBack (items);
 }
 

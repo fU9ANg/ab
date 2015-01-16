@@ -13,7 +13,7 @@ using namespace std;
 class ClientRpc
 {
 public:
-#ifdef __TEST__
+#if 1
         void UpdateOneBagItem (int fd, int pos, ItemBase& item);
         void UpdateOneEquipedItem (int fd, int pos, ItemBase& item);
         void UpdateBagItems (int fd, std::vector<ItemBase> items);

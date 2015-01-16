@@ -8,9 +8,9 @@ using namespace ServerRpcFunctions;
 void UpdateOneBagItem_CallBack (int pos, ItemBase item)
 {
         // TODO: write client source code, here
-        printf ("pos = %d\n", pos);
-        printf ("item.id = %d\n", item.getId ());
-        printf ("item.price = %f\n", item.getPrice ());
+        printf ("UpdateOneBagItem_CallBack: pos = %d\n", pos);
+        printf ("UpdateOneBagItem_CallBack: item.id = %d\n", item.getId ());
+        printf ("UpdateOneBagItem_CallBack: item.price = %f\n", item.getPrice ());
 
         EquipEquipment (999);
 }
@@ -18,11 +18,22 @@ void UpdateOneBagItem_CallBack (int pos, ItemBase item)
 void UpdateOneEquipedItem_CallBack (int pos, ItemBase item)
 {
         // TODO: write client source code, here
+		printf ("UpdateOneEquipedItem_CallBack: pos = %d\n", pos);
+		printf ("UpdateOneEquipedItem_CallBack: item.id = %d\n", item.getId ());
+		printf ("UpdateOneEquipedItem_CallBack: item.price = %f\n", item.getPrice ());
+
+		EquipEquipment (999);
 }
 
 void UpdateBagItems_CallBack (std::vector<ItemBase> items)
 {
         // TODO: write client source code, here
+		int i = 1;
+		for (std::vector<ItemBase>::iterator it = items.begin(); it != items.end(); ++it) {
+				printf ("UpdateBagItems_CallBack: item[%d].id = %d\n", i, it->getId ());
+				printf ("UpdateBagItems_CallBack: item[%d].price = %f\n", i, it->getPrice ());
+				i++;
+		}
 }
 
 ///////////////////////////////////////////////////////////////////

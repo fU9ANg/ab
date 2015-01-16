@@ -5,6 +5,7 @@ using namespace rpcfunctions;
 
 RpcFunctionBase* ServerRpc::EquipEquipment_HANDLER (std::string mainstr)
 {
+        if (mainstr.empty()) return NULL;
         RPCS::SRPCEquipEquipmentArg tmpobj;
         std::string substr;
         unsigned short nsize;
@@ -21,6 +22,7 @@ RpcFunctionBase* ServerRpc::EquipEquipment_HANDLER (std::string mainstr)
 
 RpcFunctionBase* ServerRpc::UnEquipEquipment_HANDLER (std::string mainstr)
 {
+        if (mainstr.empty()) return NULL;
         RPCS::SRPCUnEquipEquipmentArg tmpobj;
         std::string substr;
         unsigned short nsize;
@@ -36,6 +38,7 @@ RpcFunctionBase* ServerRpc::UnEquipEquipment_HANDLER (std::string mainstr)
 
 RpcFunctionBase* ServerRpc::SellItem_HANDLER (std::string mainstr)
 {
+        if (mainstr.empty()) return NULL;
         RPCS::SRPCSellItemArg tmpobj;
         std::string substr;
         unsigned short nsize;
@@ -52,6 +55,7 @@ RpcFunctionBase* ServerRpc::SellItem_HANDLER (std::string mainstr)
 
 RpcFunctionBase* ServerRpc::UseItem_HANDLER (std::string mainstr)
 {
+        if (mainstr.empty()) return NULL;
         RPCS::SRPCUseItemArg tmpobj;
         std::string substr;
         unsigned short nsize;
@@ -68,6 +72,7 @@ RpcFunctionBase* ServerRpc::UseItem_HANDLER (std::string mainstr)
 
 RpcFunctionBase* ServerRpc::ComposeItem_HANDLER (std::string mainstr)
 {
+        if (mainstr.empty()) return NULL;
         RPCS::SRPCComposeItemArg tmpobj;
         std::string substr;
         unsigned short nsize;

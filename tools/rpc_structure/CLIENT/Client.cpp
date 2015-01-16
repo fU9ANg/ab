@@ -34,13 +34,27 @@ bool restartNetwork ()
 int main ()
 {
         restartNetwork ();
+
         // TODO:
         char buff[MAX_BUFFER_SIZE];
-        (void) memset (buff, 0x00, sizeof (MAX_BUFFER_SIZE));
+        (void) memset (buff, 0x00, MAX_BUFFER_SIZE);
         int len = read (GLOBAL_FUNC_INVALIED_FD, buff, MAX_BUFFER_SIZE);
         buff[len] = 0x00;
-#ifdef __TEST__
-        printf ("recv data is: '%s'\n", buff);
+#if 1
+#if 1
+        MSG_HEAD* phead = (MSG_HEAD*) buff;
+        printf ("datalen = %d, cLen = %d, cFuncId = %d\n", len, phead->cLen, phead->cFuncId);
+        std::string tmpstr;
+        tmpstr.assign ((char*) buff + MSG_HEAD_LEN, phead->cLen - MSG_HEAD_LEN);
+        UpdateOneEquipedItem_HANDLER (tmpstr);
+
+#else
+        MSG_HEAD* phead = (MSG_HEAD*) buff;
+        printf ("datalen = %d, cLen = %d, cFuncId = %d\n", len, phead->cLen, phead->cFuncId);
+        std::string tmpstr;
+        tmpstr.assign ((char*) buff + MSG_HEAD_LEN, phead->cLen - MSG_HEAD_LEN);
+        UpdateBagItems_HANDLER (tmpstr);
+#endif
 #else
         MSG_HEAD* phead = (MSG_HEAD*) buff;
         printf ("datalen = %d, cLen = %d, cFuncId = %d\n", len, phead->cLen, phead->cFuncId);
@@ -49,17 +63,8 @@ int main ()
         std::string tmpstr;
         tmpstr.assign ((char*)buff + MSG_HEAD_LEN, phead->cLen - MSG_HEAD_LEN);
         UpdateOneBagItem_HANDLER (tmpstr);
-        // switch (phead->cFuncId) {
-        // case 110:
-        //     UpdateOneBagItem_HANDLER (tmpstr);
-        //     break;
-        // case 111:
-        //     UpdateOneEquipedItem_HANDLER (tmpstr);
-        //     break;
-        // default:
-        //     break;
-        // }
-        (void) memset (buff, 0x00, sizeof (MAX_BUFFER_SIZE));
+
+        (void) memset (buff, 0x00, MAX_BUFFER_SIZE);
         len = read (GLOBAL_FUNC_INVALIED_FD, buff, MAX_BUFFER_SIZE);
         buff[len] = 0x00;
         tmpstr.clear();

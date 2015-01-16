@@ -49,12 +49,19 @@ SERVOBJS= 	Server.o \
 		rpc/UseItem.o \
 		rpc/SellItem.o \
 		\
-		ServerRpc.o \
+		Config.o \
+		Evloop.o \
+		ProcessManager.o \
+		RecvTask.o \
+		SendTask.o \
+		Single.o \
+		Sock.o \
+		ThreadPool.o \
 		common.o \
+		\
+		ServerRpc.o \
 		message/proto/ChenyuanTypes.pb.o \
 		message/proto/Rpc.pb.o \
-		\
-		\
 		\
 		ClientRpc.o \
 		client/ServerRpcFunctions.o \
@@ -65,10 +72,10 @@ SERVOBJS= 	Server.o \
 BIN	    = Server
 
 # where are include files kept
-INC	    = -I. -I./gen -I./obj -I./rpc -I./message -I./message/proto -I./client -I./network
+INC	    = -I. -I./gen -I./obj -I./rpc -I./message -I./message/proto -I./client -I./network -I./handler
 
 # for Linker
-LINK        = -lprotobuf -lpthread
+LINK        = -lev -lprotobuf -lglog -llua5.2 -lpthread
 
 # rock..
 all	: precompile_protobuf $(BIN)
@@ -89,4 +96,4 @@ $(BIN):$(SERVOBJS)
 .PHONY: clean
 
 clean:
-	-rm -rf $(SERVOBJS) $(BIN) *~ logs .lock message/*
+	-rm -rf $(SERVOBJS) $(BIN) *~ logs .lock message/proto/*.o

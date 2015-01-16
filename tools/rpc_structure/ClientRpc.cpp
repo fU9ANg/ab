@@ -2,7 +2,7 @@
 #include "ClientRpc.h"
 #include "common.h"
 
-#ifdef __TEST__
+#if 1
 void ClientRpc::UpdateOneBagItem (int fd, int pos, ItemBase& item)
 #else
 void ClientRpc::UpdateOneBagItem (int pos, ItemBase& item)
@@ -24,7 +24,7 @@ void ClientRpc::UpdateOneBagItem (int pos, ItemBase& item)
 #endif
 }
 
-#ifdef __TEST__
+#if 1
 void ClientRpc::UpdateOneEquipedItem (int fd, int pos, ItemBase& item)
 #else
 void ClientRpc::UpdateOneEquipedItem (int pos, ItemBase& item)
@@ -46,7 +46,7 @@ void ClientRpc::UpdateOneEquipedItem (int pos, ItemBase& item)
 #endif
 }
 
-#ifdef __TEST__
+#if 1
 void ClientRpc::UpdateBagItems (int fd, std::vector<ItemBase> items)
 #else
 void ClientRpc::UpdateBagItems (std::vector<ItemBase> items)
@@ -55,6 +55,7 @@ void ClientRpc::UpdateBagItems (std::vector<ItemBase> items)
         std::string mainstr;
         std::string substr;
 
+        AppendSizeToString (mainstr, items.size());
         for (std::vector<ItemBase>::iterator it = items.begin(); it != items.end(); ++it) {
             (*it).SerializeObjectToStringForNet (mainstr);
         }
