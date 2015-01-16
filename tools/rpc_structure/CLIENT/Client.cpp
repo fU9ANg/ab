@@ -8,6 +8,8 @@
 
 #include "../protocol.h"    // for test..   
 #include "../client/LocalRpcHandlers.h" // for test..
+#include "../client/ServerRpcFunctions.h" // for test..
+
 using namespace LocalRpcHandlers;
 using namespace std;
 
@@ -31,6 +33,15 @@ bool restartNetwork ()
         }
 }
 
+#if 1
+int main ()
+{
+        ServerRpcFunctions::EquipEquipment (123);
+        GLOBAL_FUNC_INVALIED.Close ();
+
+        return (0);
+}
+#else
 int main ()
 {
         restartNetwork ();
@@ -76,3 +87,5 @@ int main ()
 
         return (0);
 }
+
+#endif

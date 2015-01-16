@@ -17,7 +17,7 @@ void CALL_SERVERRPC (std::string mainstr)
         char buff[MAX_BUFFER_SIZE];
         (void) memset (buff, 0x00, MAX_BUFFER_SIZE);
         MSG_HEAD* phead = (MSG_HEAD*) buff;
-        phead->cFuncId = 888;
+        phead->cFuncId = 110;
         phead->cLen = MSG_HEAD_LEN + mainstr.size();
         (void) memcpy ((char*) buff + MSG_HEAD_LEN, mainstr.c_str(), mainstr.size());
 
